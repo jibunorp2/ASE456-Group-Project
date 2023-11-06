@@ -1,47 +1,11 @@
 import 'package:flutter/material.dart';
+import '../ui_elements/button.dart';
 
 class Simple extends StatefulWidget {
   const Simple({Key? key}) : super(key: key);
 
   @override
   State<Simple> createState() => _Simple();
-}
-
-class MyButton extends StatelessWidget {
-  const MyButton(
-      {Key? key,
-      required this.child,
-      required this.buttonColor,
-      required this.textColor,
-      required this.function})
-      : super(key: key);
-
-  final String child;
-  final buttonColor, textColor, function;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: function,
-      child: Padding(
-        padding: const EdgeInsets.all(1.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-              height: 10,
-              width: 10,
-              color: buttonColor,
-              child: Center(
-                child: Text(child,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: textColor,
-                        fontSize: 20)),
-              )),
-        ),
-      ),
-    );
-  }
 }
 
 class _Simple extends State<Simple> {
@@ -69,19 +33,23 @@ class _Simple extends State<Simple> {
     } else if (input == '=') {
       calculate();
     } else {
-      setState(() {
-        if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
-          display = input;
-          answer = 0;
-        } else {
-          display += input;
-        }
-
-        if (operation.isNotEmpty) {
-          num2 = double.parse(display);
-        }
-      });
+      handleInput(input);
     }
+  }
+
+  void handleInput(String input) {
+    setState(() {
+      if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
+        display = input;
+        answer = 0;
+      } else {
+        display += input;
+      }
+
+      if (operation.isNotEmpty) {
+        num2 = double.parse(display);
+      }
+    });
   }
 
   void handleOperation(String op) {
