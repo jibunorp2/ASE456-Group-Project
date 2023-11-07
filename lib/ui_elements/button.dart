@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class MyButton extends StatelessWidget {
   const MyButton(
       {Key? key,
-      required this.child,
+      required this.text,
       required this.buttonColor,
       required this.textColor,
       required this.function})
       : super(key: key);
 
-  final String child;
+  final String text;
   final buttonColor, textColor, function;
 
   @override
@@ -25,7 +25,7 @@ class MyButton extends StatelessWidget {
               width: 10,
               color: buttonColor,
               child: Center(
-                child: Text(child,
+                child: Text(text,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: textColor,

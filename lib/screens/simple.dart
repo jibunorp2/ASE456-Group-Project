@@ -132,26 +132,27 @@ class _Simple extends State<Simple> {
             style: TextStyle(fontSize: 36),
           ),
         ),
-        Container(
-            height: height / 2,
-            child: GridView.builder(
-                itemCount: buttons.length,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio:
-                      ((width / 4) / ((height / 2) / (buttons.length / 4))),
-                ),
-                itemBuilder: (context, index) {
-                  return MyButton(
-                    child: buttons[index],
-                    buttonColor: Colors.deepPurple[100],
-                    textColor: Colors.black,
-                    function: () {
-                      handleClick(buttons[index]);
-                    },
-                  );
-                })),
+        Expanded(
+          child: GridView.builder(
+            itemCount: buttons.length,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              childAspectRatio:
+                  (width / height * 2),
+            ),
+            itemBuilder: (context, index) {
+              return MyButton(
+                text: buttons[index],
+                buttonColor: Colors.deepPurple[100],
+                textColor: Colors.black,
+                function: () {
+                  handleClick(buttons[index]);
+                },
+              );
+            }
+          )
+        )
       ],
     );
   }
