@@ -21,6 +21,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isArcSin = false;
   bool isArcCos = false;
   bool isArcTan = false;
+  bool isFactorial = false;
   String value = '';
   String currentOperation = '';
 
@@ -48,6 +49,18 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     return atan(value);
   }
 
+  double calculateFactorial(double value){
+    if (value is int){
+      if (value == 0 || value == 1){
+        return 1;
+      } else {
+        return value * calculateFactorial(value - 1);
+      }
+    } else {
+      return 0;
+    }
+  }
+
   void clear() {
     setState(() {
       display = '0';
@@ -71,6 +84,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       currentOperation = 'acos';
     } else if (input == 'atan'){
       currentOperation = 'atan';
+    } else if (input == '!'){
+      currentOperation = 'factorial';
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -116,6 +131,13 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         double atanValue = calculateArcTan(value);
         setState(() {
           display = atanValue.toString();
+          currentOperation = '';
+        });
+      } else if (currentOperation == 'factorial' && display.isNotEmpty) {
+        double value = double.parse(display);
+        double factorialValue = calculateFactorial(value);
+        setState(() {
+          display = factorialValue.toString();
           currentOperation = '';
         });
       } else {
@@ -193,7 +215,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   final List buttons = [
-    'C', '/','sin', 'cos', 'tan', '7', '8', '9', 'asin', 'acos', '4', '5', '6', 'atan', '*', ' 1', '2', '3', '/', '+','0','', '.', '-', '=', '','','','',''
+    'C', '/','sin', 'cos', 'tan', '7', '8', '9', 'asin', 'acos', '4', '5', '6', 'atan', '*', ' 1', '2', '3', '/', '+','0','!', '.', '-', '=', '','','','',''
   ];
 
   @override
