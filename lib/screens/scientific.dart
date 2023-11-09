@@ -16,11 +16,36 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   String operation = '';
   double answer = 0.0;
   bool isSin = false;
+  bool isCos = false;
+  bool isTan = false;
+  bool isArcSin = false;
+  bool isArcCos = false;
+  bool isArcTan = false;
   String value = '';
   String currentOperation = '';
 
   double calculateSin(double value) {
     return sin(value);
+  }
+
+  double calculateCos(double value) {
+    return cos(value);
+  }
+
+  double calculateTan(double value){
+    return tan(value);
+  }
+
+  double calculateArcSin(double value){
+    return asin(value);
+  }
+
+  double calculateArcCos(double value){
+    return acos(value);
+  }
+
+  double calculateArcTan(double value){
+    return atan(value);
   }
 
   void clear() {
@@ -34,7 +59,19 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   void handleClick(String input) {
-    if (RegExp(r'[+\-*/0]').hasMatch(input)) {
+    if (input == 'sin') {
+      currentOperation = 'sin';
+    } else if (input == 'cos') {
+      currentOperation = 'cos';
+    } else if (input =='tan'){
+      currentOperation = 'tan';
+    } else if (input == 'asin'){
+      currentOperation = 'asin';
+    } else if (input == 'acos'){
+      currentOperation = 'acos';
+    } else if (input == 'atan'){
+      currentOperation = 'atan';
+    } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
       clear();
@@ -46,11 +83,44 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
           display = sinValue.toString();
           currentOperation = '';
         });
+      } else if (currentOperation == 'cos' && display.isNotEmpty) {
+        double value = double.parse(display);
+        double cosValue = calculateCos(value);
+        setState(() {
+          display = cosValue.toString();
+          currentOperation = '';
+        });
+      } else if (currentOperation == 'tan' && display.isNotEmpty) {
+        double value = double.parse(display);
+        double tanValue = calculateTan(value);
+        setState(() {
+          display = tanValue.toString();
+          currentOperation = '';
+        });
+      } else if (currentOperation == 'asin' && display.isNotEmpty) {
+        double value = double.parse(display);
+        double asinValue = calculateArcSin(value);
+        setState(() {
+          display = asinValue.toString();
+          currentOperation = '';
+        });
+      } else if (currentOperation == 'acos' && display.isNotEmpty) {
+        double value = double.parse(display);
+        double acosValue = calculateArcCos(value);
+        setState(() {
+          display = acosValue.toString();
+          currentOperation = '';
+        });
+      } else if (currentOperation == 'atan' && display.isNotEmpty) {
+        double value = double.parse(display);
+        double atanValue = calculateArcTan(value);
+        setState(() {
+          display = atanValue.toString();
+          currentOperation = '';
+        });
       } else {
         calculate();
       }
-    } else if (input == 'sin') {
-      currentOperation = 'sin';
     } else {
       handleInput(input);
     }
@@ -123,7 +193,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   final List buttons = [
-    'C', '/','sin', '', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='
+    'C', '/','sin', 'cos', 'tan', '7', '8', '9', 'asin', 'acos', '4', '5', '6', 'atan', '*', ' 1', '2', '3', '/', '+','0','', '.', '-', '=', '','','','',''
   ];
 
   @override
@@ -146,7 +216,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
             itemCount: buttons.length,
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
+              crossAxisCount: 5,
               childAspectRatio:
                   (width / height * 2),
             ),
