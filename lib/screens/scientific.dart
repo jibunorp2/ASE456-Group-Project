@@ -15,9 +15,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   double num2 = 0.0;
   String operation = '';
   double answer = 0.0;
-  bool isSin = false;
-  bool isCos = false;
-  bool isTan = false;
+  bool isSinOperation = false;
+  bool isCosOperation = false;
+  bool isTanOperation = false;
   bool isArcSin = false;
   bool isArcCos = false;
   bool isArcTan = false;
@@ -25,16 +25,49 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   String value = '';
   String currentOperation = '';
 
-  double calculateSin(double value) {
-    return sin(value);
+  void calculateSin() {
+    if (isSinOperation){
+      final number = double.parse(display.substring(4));
+      final result = sin(number);
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isSinOperation = false;
+      });
+    }
   }
 
-  double calculateCos(double value) {
-    return cos(value);
+  void calculateCos() {
+    if (isCosOperation){
+      final number = double.parse(display.substring(4));
+      final result = cos(number);
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isCosOperation = false;
+      });
+    }
   }
 
-  double calculateTan(double value){
-    return tan(value);
+  void calculateTan() {
+    if (isCosOperation){
+      final number = double.parse(display.substring(4));
+      final result = tan(number);
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isTanOperation = false;
+      });
+    }
   }
 
   double calculateArcSin(double value){
@@ -73,11 +106,14 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
 
   void handleClick(String input) {
     if (input == 'sin') {
-      currentOperation = 'sin';
+      isSinOperation = true;
+      display ='sin(';
     } else if (input == 'cos') {
-      currentOperation = 'cos';
+      isCosOperation = true;
+      display = 'cos(';
     } else if (input =='tan'){
-      currentOperation = 'tan';
+      isTanOperation = true;
+      display = 'tan(';
     } else if (input == 'asin'){
       currentOperation = 'asin';
     } else if (input == 'acos'){
@@ -91,27 +127,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     } else if (input == 'C') {
       clear();
     } else if (input == '=') {
-      if (currentOperation == 'sin' && display.isNotEmpty) {
-        double value = double.parse(display);
-        double sinValue = calculateSin(value);
-        setState(() {
-          display = sinValue.toString();
-          currentOperation = '';
-        });
-      } else if (currentOperation == 'cos' && display.isNotEmpty) {
-        double value = double.parse(display);
-        double cosValue = calculateCos(value);
-        setState(() {
-          display = cosValue.toString();
-          currentOperation = '';
-        });
-      } else if (currentOperation == 'tan' && display.isNotEmpty) {
-        double value = double.parse(display);
-        double tanValue = calculateTan(value);
-        setState(() {
-          display = tanValue.toString();
-          currentOperation = '';
-        });
+      if (isSinOperation) {
+        calculateSin();
+      } else if (isCosOperation) {
+        calculateCos();
+      } else if (isTanOperation) {
+        calculateTan();
       } else if (currentOperation == 'asin' && display.isNotEmpty) {
         double value = double.parse(display);
         double asinValue = calculateArcSin(value);
@@ -154,7 +175,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   void handleInput(String input) {
     setState(() {
       if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
-        if (isSin) {
+        if (isSinOperation || isCosOperation || isTanOperation || isArcSin || isArcCos || isArcTan || isFactorial) {
           value = input;
           display += input;
         } else {
