@@ -167,7 +167,10 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       isArcTanOperation = true;
       display = 'atan(';
     } else if (input == '!'){
-      currentOperation = 'factorial';
+      setState(() {
+        display += '!';
+        currentOperation = 'factorial';
+      });
     } else if (input == '^'){
       setState(() {
         display += '^';
@@ -191,7 +194,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       } else if (isArcTanOperation) {
         calculateArcTan();
       } else if (currentOperation == 'factorial' && display.isNotEmpty) {
-        double value = double.parse(display);
+        double value = double.parse(display.substring(0, display.length - 1));
         double factorialValue = calculateFactorial(value);
         setState(() {
           display = factorialValue.toString();
