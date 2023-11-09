@@ -1,3 +1,4 @@
+import 'package:ase456_group_project/screens/advanced.dart';
 import 'package:flutter/material.dart';
 import 'package:ase456_group_project/screens/simple.dart';
 
@@ -24,7 +25,7 @@ class _HomePageState extends State<Home> {
       appBar: AppBar(
         title: const Text(''),
       ),
-      body: [Simple(), Item2()][tab],
+      body: [Simple(), AdvancedCalculator()][tab],
       drawer: Drawer(
         child: ListView(
           children: [
@@ -37,7 +38,7 @@ class _HomePageState extends State<Home> {
             ),
             ListTile(
               leading: const Icon(Icons.arrow_right),
-              title: const Text("Item 2"),
+              title: const Text("advanced"),
               onTap: () {
                 selectItem(1);
               },
