@@ -18,10 +18,11 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isSinOperation = false;
   bool isCosOperation = false;
   bool isTanOperation = false;
-  bool isArcSin = false;
-  bool isArcCos = false;
-  bool isArcTan = false;
+  bool isArcSinOperation = false;
+  bool isArcCosOperation = false;
+  bool isArcTanOperation = false;
   bool isFactorial = false;
+  bool isExponent = false;
   String value = '';
   String currentOperation = '';
 
@@ -70,17 +71,50 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-  double calculateArcSin(double value){
-    return asin(value);
-  }
+  void calculateArcSin() {
+      if (isArcSinOperation){
+        final number = double.parse(display.substring(5));
+        final result = asin(number);
+        setState(() {
+          display = result.toString();
+          num1 = result;
+          num2 = 0.0;
+          operation = '';
+          answer = result;
+          isArcSinOperation = false;
+        });
+      }
+    }
 
-  double calculateArcCos(double value){
-    return acos(value);
-  }
+    void calculateArcCos() {
+      if (isArcCosOperation){
+        final number = double.parse(display.substring(5));
+        final result = acos(number);
+        setState(() {
+          display = result.toString();
+          num1 = result;
+          num2 = 0.0;
+          operation = '';
+          answer = result;
+          isArcCosOperation = false;
+        });
+      }
+    }
 
-  double calculateArcTan(double value){
-    return atan(value);
-  }
+    void calculateArcTan() {
+      if (isArcTanOperation){
+        final number = double.parse(display.substring(5));
+        final result = atan(number);
+        setState(() {
+          display = result.toString();
+          num1 = result;
+          num2 = 0.0;
+          operation = '';
+          answer = result;
+          isArcTanOperation = false;
+        });
+      }
+    }
 
   double calculateFactorial(double value){
     if (value is int){
@@ -93,6 +127,15 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       return 0;
     }
   }
+
+  double calculateExponent(double value, double exponent){
+    if (value is int && exponent is int){
+      return pow(value, exponent).toDouble();
+    } else {
+      return 0;
+    }
+  }
+  
 
   void clear() {
     setState(() {
@@ -115,13 +158,21 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       isTanOperation = true;
       display = 'tan(';
     } else if (input == 'asin'){
-      currentOperation = 'asin';
+      isArcSinOperation = true;
+      display = 'asin(';
     } else if (input == 'acos'){
-      currentOperation = 'acos';
+      isArcCosOperation = true;
+      display ='acos(';
     } else if (input == 'atan'){
-      currentOperation = 'atan';
+      isArcTanOperation = true;
+      display = 'atan(';
     } else if (input == '!'){
       currentOperation = 'factorial';
+    } else if (input == '^'){
+      setState(() {
+        display += '^';
+        currentOperation = 'exponent';
+      });
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -133,27 +184,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         calculateCos();
       } else if (isTanOperation) {
         calculateTan();
-      } else if (currentOperation == 'asin' && display.isNotEmpty) {
-        double value = double.parse(display);
-        double asinValue = calculateArcSin(value);
-        setState(() {
-          display = asinValue.toString();
-          currentOperation = '';
-        });
-      } else if (currentOperation == 'acos' && display.isNotEmpty) {
-        double value = double.parse(display);
-        double acosValue = calculateArcCos(value);
-        setState(() {
-          display = acosValue.toString();
-          currentOperation = '';
-        });
-      } else if (currentOperation == 'atan' && display.isNotEmpty) {
-        double value = double.parse(display);
-        double atanValue = calculateArcTan(value);
-        setState(() {
-          display = atanValue.toString();
-          currentOperation = '';
-        });
+      } else if (isArcSinOperation) {
+        calculateArcSin();
+      } else if (isArcCosOperation) {
+        calculateArcCos();
+      } else if (isArcTanOperation) {
+        calculateArcTan();
       } else if (currentOperation == 'factorial' && display.isNotEmpty) {
         double value = double.parse(display);
         double factorialValue = calculateFactorial(value);
@@ -161,6 +197,18 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
           display = factorialValue.toString();
           currentOperation = '';
         });
+      } else if (currentOperation == 'exponent' && display.isNotEmpty) {
+        List<String> parts = display.split('^');
+        double base = double.parse(parts[0]);
+        double exponent = double.parse(parts[1]);
+        
+        double exponentialValue = calculateExponent(base, exponent);
+        setState(() {
+          display =  exponentialValue.toString();
+          currentOperation = '';
+        });
+      } else if (isExponent) {
+        calculateExponent(num1, num2);
       } else {
         calculate();
       }
@@ -175,7 +223,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   void handleInput(String input) {
     setState(() {
       if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
-        if (isSinOperation || isCosOperation || isTanOperation || isArcSin || isArcCos || isArcTan || isFactorial) {
+        if (isSinOperation || isCosOperation || isTanOperation || isArcSinOperation || isArcCosOperation || isArcTanOperation || isFactorial) {
           value = input;
           display += input;
         } else {
@@ -236,7 +284,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   final List buttons = [
-    'C', '/','sin', 'cos', 'tan', '7', '8', '9', 'asin', 'acos', '4', '5', '6', 'atan', '*', ' 1', '2', '3', '/', '+','0','!', '.', '-', '=', '','','','',''
+    'C', '/','.', 'sin', 'cos', '!', '^', '', 'tan', 'asin', '7', '8', '9', 'acos', 'atan', ' 4', '5', '6', '*', '/','1','2', '3', '-', '+', '','0','','','='
   ];
 
   @override
