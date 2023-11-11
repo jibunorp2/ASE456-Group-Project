@@ -39,7 +39,7 @@ class _Simple extends State<Simple> {
 
   void handleInput(String input) {
     setState(() {
-      if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
+      if (answer != 0.0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
         display = input;
         answer = 0;
       } else {

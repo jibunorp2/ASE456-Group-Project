@@ -23,6 +23,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isArcTanOperation = false;
   bool isFactorial = false;
   bool isExponent = false;
+  bool isSquareRoot = false;
+  //bool isExponential = false;
   String value = '';
   String currentOperation = '';
 
@@ -86,35 +88,65 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       }
     }
 
-    void calculateArcCos() {
-      if (isArcCosOperation){
-        final number = double.parse(display.substring(5));
-        final result = acos(number);
-        setState(() {
-          display = result.toString();
-          num1 = result;
-          num2 = 0.0;
-          operation = '';
-          answer = result;
-          isArcCosOperation = false;
-        });
-      }
+  void calculateArcCos() {
+    if (isArcCosOperation){
+      final number = double.parse(display.substring(5));
+      final result = acos(number);
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isArcCosOperation = false;
+      });
     }
+  }
 
-    void calculateArcTan() {
-      if (isArcTanOperation){
-        final number = double.parse(display.substring(5));
-        final result = atan(number);
-        setState(() {
-          display = result.toString();
-          num1 = result;
-          num2 = 0.0;
-          operation = '';
-          answer = result;
-          isArcTanOperation = false;
-        });
-      }
+  void calculateArcTan() {
+    if (isArcTanOperation){
+      final number = double.parse(display.substring(5));
+      final result = atan(number);
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isArcTanOperation = false;
+      });
     }
+  }
+
+  void calculateSquareRoot() {
+    if (isSquareRoot){
+      final number = double.parse(display.substring(1));
+      final result = sqrt(number);
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isSquareRoot = false;
+      });
+    }
+  }
+
+  /*void calculateExponential(){
+    if (isExponential){
+      final number = double.parse(display.substring(0));
+      final result = exp(number);
+      setState(() {
+        display = result.toStringA();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isExponential = false;
+      });
+    }
+  }*/
 
   double calculateFactorial(double value){
     if (value is int){
@@ -136,7 +168,6 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
   
-
   void clear() {
     setState(() {
       display = '0';
@@ -176,6 +207,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         display += '^';
         currentOperation = 'exponent';
       });
+    } else if (input == '\u{221A}'){
+        isSquareRoot = true;
+        display = '\u{221A}';
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -212,6 +246,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         });
       } else if (isExponent) {
         calculateExponent(num1, num2);
+      } else if (isSquareRoot) {
+        calculateSquareRoot();
       } else {
         calculate();
       }
@@ -220,19 +256,16 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-
-
-
   void handleInput(String input) {
     setState(() {
-      if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
+      if (answer != 0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
         if (isSinOperation || isCosOperation || isTanOperation || isArcSinOperation || isArcCosOperation || isArcTanOperation || isFactorial) {
           value = input;
           display += input;
         } else {
           display = input;
         }
-        answer = 0;
+        //answer = 0;
       } else {
         display += input;
       }
@@ -242,7 +275,6 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       }
     });
   }
-
 
   void handleOperation(String op) {
     setState(() {
@@ -287,7 +319,36 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   final List buttons = [
-    'C', '/','.', 'sin', 'cos', '!', '^', '', 'tan', 'asin', '7', '8', '9', 'acos', 'atan', ' 4', '5', '6', '*', '/','1','2', '3', '-', '+', '','0','','','='
+    'C', //1
+    'sin',
+    'cos', 
+    'tan', 
+    '!', //5
+    '^', 
+    'asin', 
+    'acos', 
+    'atan', 
+    '/', //10
+    '\u{221A}',
+    '7',
+    '8',
+    '9',
+    '*',//15
+    '', 
+    '4', 
+    '5', 
+    '6', 
+    '+',//20
+    '',
+    '1', 
+    '2', 
+    '3', 
+    '-', //25
+    '',
+    '',
+    '0',
+    '.',
+    '='
   ];
 
   @override
