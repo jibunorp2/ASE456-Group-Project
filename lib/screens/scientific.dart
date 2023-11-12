@@ -27,6 +27,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isReciprocal = false;
   bool isSquared = false;
   bool isMod = false;
+  bool isNthRoot = false;
   String value = '';
 
   void calculateSin() {
@@ -194,6 +195,23 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     return result.toDouble();
   }
 
+  void calculateNthRoot() {
+    final parts = display.split('\u{221A}');
+    final number = double.parse(parts[0]);
+    final root = double.parse(parts[1]);
+    final result = nthRoot(number, root);
+    setState(() {
+      display = result.toString();
+      num1 = result;
+      num2 = 0.0;
+      answer = result;
+    });
+  }
+
+  double nthRoot(double number, double root) {
+    return pow(number, 1 / root).toDouble();
+  }
+
   void clear() {
     setState(() {
       display = '0';
@@ -243,10 +261,14 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       display = '1/(';
       isReciprocal = true;
     } else if (input == '^2'){
-      //display += '^2';
       isSquared = true;
       setState(() {
         display += '^2';
+      }); 
+    } else if (input == 'x\u{221A}y'){
+      isNthRoot = true;
+      setState(() {
+        display += '\u{221A}';
       });
       
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
@@ -303,6 +325,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
           display = squaredValue.toString();
           isSquared = false;
         });
+      } else if (isNthRoot) {
+        calculateNthRoot();
+        isNthRoot = false;
       } else {
         calculate();
       }
@@ -389,7 +414,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     '8',
     '9',
     '*',//15
-    '', 
+    'x\u{221A}y', 
     '4', 
     '5', 
     '6', 
