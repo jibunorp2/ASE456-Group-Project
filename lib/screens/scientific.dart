@@ -24,12 +24,10 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isFactorial = false;
   bool isExponent = false;
   bool isSquareRoot = false;
-  bool isAbsolute = false;
   bool isReciprocal = false;
-  //bool isExponential = false;
+  bool isSquared = false;
   bool isMod = false;
   String value = '';
-  String currentOperation = '';
 
   void calculateSin() {
     if (isSinOperation){
@@ -136,21 +134,6 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-  /*void calculateExponential(){
-    if (isExponential){
-      final number = double.parse(display.substring(0));
-      final result = exp(number);
-      setState(() {
-        display = result.toStringA();
-        num1 = result;
-        num2 = 0.0;
-        operation = '';
-        answer = result;
-        isExponential = false;
-      });
-    }
-  }*/
-
   double calculateFactorial(double value){
     if (value is int){
       if (value == 0 || value == 1){
@@ -171,25 +154,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-  void calculateAbsoluteValue() {
-    if (isAbsolute){
-      final number = double.parse(display.substring(1));
-      final result = number.abs();
-      setState(() {
-        display = result.toString();
-        num1 = result;
-        num2 = 0.0;
-        operation = '';
-        answer = result;
-        isAbsolute = false;
-      });
-    }
-  }
-
   double calculateMod(double number1, double number2) {
     if (isMod) {
+      isMod = false;
       return number1 % number2;
     }
+    isMod = false;
     return 0.0;
   }
 
@@ -213,8 +183,17 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
+  double calculateSquared(double number) {
+    final result = pow(number, 2);
+    setState(() {
+      display = result.toString();
+      num1 = result.toDouble();
+      num2 = 0.0;
+      answer = result.toDouble();
+    });
+    return result.toDouble();
+  }
 
-  
   void clear() {
     setState(() {
       display = '0';
@@ -245,27 +224,31 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       isArcTanOperation = true;
       display = 'atan(';
     } else if (input == '!'){
+      isFactorial = true;
       setState(() {
         display += '!';
-        currentOperation = 'factorial';
       });
     } else if (input == '^'){
+      isExponent = true;
       setState(() {
         display += '^';
-        currentOperation = 'exponent';
       });
     } else if (input == '\u{221A}'){
-        isSquareRoot = true;
-        display = '\u{221A}';
-    } else if (input == '|x|'){
-        isAbsolute = true;
-        display = '|';
+      isSquareRoot = true;
+      display = '\u{221A}';
     } else if (input == '%'){
-        display += '%';
-        isMod = true;
+      display += '%';
+      isMod = true;
     } else if (input == '1/x'){
-        display = '1/(';
-        isReciprocal = true;
+      display = '1/(';
+      isReciprocal = true;
+    } else if (input == '^2'){
+      //display += '^2';
+      isSquared = true;
+      setState(() {
+        display += '^2';
+      });
+      
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -283,29 +266,26 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         calculateArcCos();
       } else if (isArcTanOperation) {
         calculateArcTan();
-      } else if (currentOperation == 'factorial' && display.isNotEmpty) {
+      } else if (isFactorial) {
         double value = double.parse(display.substring(0, display.length - 1));
         double factorialValue = calculateFactorial(value);
         setState(() {
           display = factorialValue.toString();
-          currentOperation = '';
+          isFactorial = false;
         });
-      } else if (currentOperation == 'exponent' && display.isNotEmpty) {
+      } else if (isExponent) {
         List<String> parts = display.split('^');
         double base = double.parse(parts[0]);
         double exponent = double.parse(parts[1]);
-        
         double exponentialValue = calculateExponent(base, exponent);
         setState(() {
           display =  exponentialValue.toString();
-          currentOperation = '';
+          isExponent = false;
         });
       } else if (isExponent) {
         calculateExponent(num1, num2);
       } else if (isSquareRoot) {
         calculateSquareRoot();
-      } else if (isAbsolute) {
-        calculateAbsoluteValue();
       } else if (isMod) {
         List<String> parts = display.split('%');
         double num1 = double.parse(parts[0]);
@@ -313,10 +293,16 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         double modValue = calculateMod(num1, num2);
         setState(() {
           display =  modValue.toString();
-          isMod = false;
         });
       } else if (isReciprocal) {
         calculateReciprocal();
+      } else if (isSquared) {
+        double value = double.parse(display.substring(0, display.length - 2));
+        double squaredValue = calculateSquared(value);
+        setState(() {
+          display = squaredValue.toString();
+          isSquared = false;
+        });
       } else {
         calculate();
       }
@@ -403,7 +389,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     '8',
     '9',
     '*',//15
-    '|x|', 
+    '', 
     '4', 
     '5', 
     '6', 
@@ -414,7 +400,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     '3', 
     '-', //25
     '1/x',
-    '',
+    '^2',
     '0',
     '.',
     '='
