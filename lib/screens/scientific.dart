@@ -25,6 +25,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isExponent = false;
   bool isSquareRoot = false;
   bool isAbsolute = false;
+  bool isReciprocal = false;
   //bool isExponential = false;
   bool isMod = false;
   String value = '';
@@ -192,6 +193,27 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     return 0.0;
   }
 
+  void calculateReciprocal() {
+    if (num1 == 0.0 && num2 == 0.0 && display.isNotEmpty) {
+      final number = double.parse(display.substring(3));
+      if (number != 0) {
+        final result = 1 / number;
+        setState(() {
+          display = result.toString();
+          num1 = result;
+          num2 = 0.0;
+          operation = '';
+          answer = result;
+        });
+      } else {
+        setState(() {
+          display = 'Error';
+        });
+      }
+    }
+  }
+
+
   
   void clear() {
     setState(() {
@@ -241,6 +263,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     } else if (input == '%'){
         display += '%';
         isMod = true;
+    } else if (input == '1/x'){
+        display = '1/(';
+        isReciprocal = true;
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -290,6 +315,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
           display =  modValue.toString();
           isMod = false;
         });
+      } else if (isReciprocal) {
+        calculateReciprocal();
       } else {
         calculate();
       }
@@ -386,7 +413,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     '2', 
     '3', 
     '-', //25
-    '',
+    '1/x',
     '',
     '0',
     '.',
