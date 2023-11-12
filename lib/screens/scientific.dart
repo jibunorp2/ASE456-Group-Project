@@ -24,7 +24,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   bool isFactorial = false;
   bool isExponent = false;
   bool isSquareRoot = false;
+  bool isAbsolute = false;
   //bool isExponential = false;
+  bool isMod = false;
   String value = '';
   String currentOperation = '';
 
@@ -167,6 +169,29 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       return 0;
     }
   }
+
+  void calculateAbsoluteValue() {
+    if (isAbsolute){
+      final number = double.parse(display.substring(1));
+      final result = number.abs();
+      setState(() {
+        display = result.toString();
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isAbsolute = false;
+      });
+    }
+  }
+
+  double calculateMod(double number1, double number2) {
+    if (isMod) {
+      return number1 % number2;
+    }
+    return 0.0;
+  }
+
   
   void clear() {
     setState(() {
@@ -210,6 +235,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     } else if (input == '\u{221A}'){
         isSquareRoot = true;
         display = '\u{221A}';
+    } else if (input == '|x|'){
+        isAbsolute = true;
+        display = '|';
+    } else if (input == '%'){
+        display += '%';
+        isMod = true;
     } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -248,6 +279,17 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         calculateExponent(num1, num2);
       } else if (isSquareRoot) {
         calculateSquareRoot();
+      } else if (isAbsolute) {
+        calculateAbsoluteValue();
+      } else if (isMod) {
+        List<String> parts = display.split('%');
+        double num1 = double.parse(parts[0]);
+        double num2 = double.parse(parts[1]);
+        double modValue = calculateMod(num1, num2);
+        setState(() {
+          display =  modValue.toString();
+          isMod = false;
+        });
       } else {
         calculate();
       }
@@ -334,12 +376,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     '8',
     '9',
     '*',//15
-    '', 
+    '|x|', 
     '4', 
     '5', 
     '6', 
     '+',//20
-    '',
+    '%',
     '1', 
     '2', 
     '3', 
