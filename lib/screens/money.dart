@@ -47,26 +47,25 @@ class _MoneyState extends State<Money> {
 
   final apiKey = 'f794ffd8b3f030b47e1b';
 
+  // Example API response for converting 1 USD to EUR
+  // {"USD_EUR":0.93445}
+  // Link to submit: https://free.currconv.com/api/v7/convert?q=USD_EUR&compact=ultra&apiKey=f794ffd8b3f030b47e1b
+
   Future<double> convertCurrencies(
       String fromCurrency, String toCurrency, double amount) async {
-    final apiUrl =
-        Uri.https('api.apilayer.com', '/currency_conversion/v1/convert', {
-      'from': fromCurrency,
-      'to': toCurrency,
-      'amount': amount.toString(),
+    final q = '${fromCurrency}_$toCurrency';
+    final apiUrl = Uri.https('free.currconv.com', '/api/v7/convert', {
+      'q': q,
+      'compact': 'ultra',
+      'apiKey': apiKey,
     });
 
     try {
-      final response = await http.get(
-        apiUrl,
-        headers: {
-          'api-key': apiKey,
-        },
-      );
+      final response = await http.get(apiUrl);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final convertedAmount = data['result'];
+        final convertedAmount = data[q].toDouble() * amount;
         return convertedAmount.toDouble();
       } else {
         throw Exception('Failed to load data');
@@ -115,10 +114,10 @@ class _MoneyState extends State<Money> {
                     ),
                     onChanged: (String value) async {
                       if (value.isEmpty) return;
+                      _leftAmount = double.parse(value);
                       final convertedAmount = await convertCurrencies(
                           _leftCurrency, _rightCurrency, _leftAmount);
                       setState(() {
-                        _leftAmount = double.parse(value);
                         _rightAmount = convertedAmount;
                         _leftController.text = value;
                         _rightController.text = convertedAmount.toString();
@@ -159,10 +158,10 @@ class _MoneyState extends State<Money> {
                     ),
                     onChanged: (String value) async {
                       if (value.isEmpty) return;
+                      _rightAmount = double.parse(value);
                       final convertedAmount = await convertCurrencies(
                           _rightCurrency, _leftCurrency, _rightAmount);
                       setState(() {
-                        _rightAmount = double.parse(value);
                         _leftAmount = convertedAmount;
                         _leftController.text = convertedAmount.toString();
                         _rightController.text = value;
