@@ -43,20 +43,65 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     }
   }
 
+  void handleNegation() {
+    if (display != '0') {
+      setState(() {
+        if (display[0] == '-') {
+          display = display.substring(1);
+        } else {
+          display = '-$display';
+        }
+      });
+    }
+  }
+
+  void calculateLn() {
+    final number = double.parse(display);
+    final result = log(number);
+    setState(() {
+      display = result.toString();
+      num1 = result;
+      num2 = 0.0;
+      operation = '';
+      answer = result;
+    });
+  }
+
+  void calculateExp() { // calculate exponential calculations
+    final number = double.parse(display);
+    final result = exp(number);
+    setState(() {
+      display = result.toString();
+      num1 = result;
+      num2 = 0.0;
+      operation = '';
+      answer = result;
+    });
+  }
+
+  void handleAbsoluteValue() {
+    double number = double.parse(display);
+    double result = number.abs();
+    
+    setState(() {
+      display = '|$number| = $result';
+      answer = result;
+      num1 = result;
+    });
+  }
+
   void handleClick(String input) {
       if (input == 'log'){
         isLogOperation = true;
         display = 'log(';
       } else if (input == '±'){
-        setState(() {
-          if (display != '0') {
-            if (display[0] == '-') {
-              display = display.substring(1);
-            } else {
-              display = '-$display';
-            }
-          }
-        });
+        handleNegation();
+      } else if (input == 'ln'){
+        calculateLn();
+      } else if (input == 'exp'){
+        calculateExp();
+      } else if (input == '|x|'){
+        handleAbsoluteValue();
       } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
         handleOperation(input);
       } else if (input == 'C') {
@@ -145,7 +190,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
 
   final List buttons = [
-    'C', 'e', 'pi', '±', '', '', '', '', '', '/', '', '7', '8', '9', '*', '', '4', '5', '6','+', 'log', '1', '2', '3','-', '', '', '0', '.', '='
+    'C', 'e', 'pi', '±', 'ln', 'exp', 'log', '|x|', '', '/', '', '7', '8', '9', '*', '', '4', '5', '6','+', '', '1', '2', '3','-', '', '', '0', '.', '='
   ];
 
   @override
