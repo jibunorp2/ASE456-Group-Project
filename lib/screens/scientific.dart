@@ -88,7 +88,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
           isArcSinOperation = false;
         });
       }
-    }
+  }
 
   void calculateArcCos() {
     if (isArcCosOperation){
@@ -271,7 +271,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         display += '\u{221A}';
       });
       
-    } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
+    } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
       clear();

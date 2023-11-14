@@ -26,7 +26,7 @@ class _Simple extends State<Simple> {
   }
 
   void handleClick(String input) {
-    if (RegExp(r'[+\-*/0]').hasMatch(input)) {
+    if (RegExp(r'[+\-*/]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
       clear();

@@ -47,7 +47,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       if (input == 'log'){
         isLogOperation = true;
         display = 'log(';
-      } else if (RegExp(r'[+\-*/0]').hasMatch(input)) {
+      } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
         handleOperation(input);
       } else if (input == 'C') {
         clear();
@@ -64,7 +64,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
 
     void handleInput(String input) {
       setState(() {
-        if (answer != 0 || RegExp(r'[+\-*/0]').hasMatch(display)) {
+        if (answer != 0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
           if (input == 'pi') {
             display = pi.toString();
           } else if (input == 'e') {
@@ -135,7 +135,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
 
   final List buttons = [
-    'C', 'e', 'pi', '/', '', '7', '8', '9', '*', '+', '4', '5', '6', '-', '.', '1', '2', '3', 'log','', '0', '', '', '','', '', '', '', '', '='
+    'C', 'e', 'pi', '', '', '', '', '', '', '/', '', '7', '8', '9', '*', '', '4', '5', '6','+', 'log', '1', '2', '3','-', '', '', '0', '.', '='
   ];
 
   @override
