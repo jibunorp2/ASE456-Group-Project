@@ -47,6 +47,16 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       if (input == 'log'){
         isLogOperation = true;
         display = 'log(';
+      } else if (input == '±'){
+        setState(() {
+          if (display != '0') {
+            if (display[0] == '-') {
+              display = display.substring(1);
+            } else {
+              display = '-$display';
+            }
+          }
+        });
       } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
         handleOperation(input);
       } else if (input == 'C') {
@@ -135,7 +145,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
 
   final List buttons = [
-    'C', 'e', 'pi', '', '', '', '', '', '', '/', '', '7', '8', '9', '*', '', '4', '5', '6','+', 'log', '1', '2', '3','-', '', '', '0', '.', '='
+    'C', 'e', 'pi', '±', '', '', '', '', '', '/', '', '7', '8', '9', '*', '', '4', '5', '6','+', 'log', '1', '2', '3','-', '', '', '0', '.', '='
   ];
 
   @override
