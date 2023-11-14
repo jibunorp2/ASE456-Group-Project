@@ -9,7 +9,10 @@ class ScientificCalculator extends StatefulWidget {
   State<ScientificCalculator> createState() => _ScientificCalculatorState();
 }
 
+enum AngleMode { radians, degrees }
+
 class _ScientificCalculatorState extends State<ScientificCalculator> {
+  AngleMode currentMode = AngleMode.radians;
   String display = '0';
   double num1 = 0.0;
   double num2 = 0.0;
@@ -31,8 +34,10 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   String value = '';
 
   void calculateSin() {
-    if (isSinOperation){
-      final number = double.parse(display.substring(4));
+    if (isSinOperation) {
+      final number = currentMode == AngleMode.radians
+          ? double.parse(display.substring(4))
+          : (double.parse(display.substring(4)) * (pi / 180)); // Convert degrees to radians
       final result = sin(number);
       setState(() {
         display = result.toString();
@@ -46,8 +51,10 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   void calculateCos() {
-    if (isCosOperation){
-      final number = double.parse(display.substring(4));
+    if (isCosOperation) {
+      final number = currentMode == AngleMode.radians
+          ? double.parse(display.substring(4))
+          : (double.parse(display.substring(4)) * (pi / 180)); // Convert degrees to radians
       final result = cos(number);
       setState(() {
         display = result.toString();
@@ -60,9 +67,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
+
   void calculateTan() {
-    if (isCosOperation){
-      final number = double.parse(display.substring(4));
+    if (isTanOperation) {
+      final number = currentMode == AngleMode.radians
+          ? double.parse(display.substring(4))
+          : (double.parse(display.substring(4)) * (pi / 180)); // Convert degrees to radians
       final result = tan(number);
       setState(() {
         display = result.toString();
@@ -76,23 +86,28 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   void calculateArcSin() {
-      if (isArcSinOperation){
-        final number = double.parse(display.substring(5));
-        final result = asin(number);
-        setState(() {
-          display = result.toString();
+    if (isArcSinOperation) {
+      final number = currentMode == AngleMode.radians
+          ? double.parse(display.substring(5))
+          : (double.parse(display.substring(5)) * (pi / 180)); // Convert degrees to radians
+      final result = asin(number);
+      setState(() {
+        display = result.toString();
           num1 = result;
           num2 = 0.0;
           operation = '';
           answer = result;
           isArcSinOperation = false;
-        });
-      }
+      });
+    }
   }
 
+
   void calculateArcCos() {
-    if (isArcCosOperation){
-      final number = double.parse(display.substring(5));
+    if (isArcCosOperation) {
+      final number = currentMode == AngleMode.radians
+          ? double.parse(display.substring(5))
+          : (double.parse(display.substring(5)) * (pi / 180)); // Convert degrees to radians
       final result = acos(number);
       setState(() {
         display = result.toString();
@@ -106,8 +121,10 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   void calculateArcTan() {
-    if (isArcTanOperation){
-      final number = double.parse(display.substring(5));
+    if (isArcTanOperation) {
+      final number = currentMode == AngleMode.radians
+          ? double.parse(display.substring(5))
+          : (double.parse(display.substring(5)) * (pi / 180)); // Convert degrees to radians
       final result = atan(number);
       setState(() {
         display = result.toString();
@@ -435,6 +452,34 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+
+    Widget buildAngleModeToggle() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Angle Mode: '),
+          DropdownButton<AngleMode>(
+            value: currentMode,
+            items: [
+              DropdownMenuItem(
+                value: AngleMode.radians,
+                child: Text('Radians'),
+              ),
+              DropdownMenuItem(
+                value: AngleMode.degrees,
+                child: Text('Degrees'),
+              ),
+            ],
+            onChanged: (AngleMode? mode) {
+              setState(() {
+                currentMode = mode!;
+              });
+            },
+          ),
+        ],
+      );
+    }
+
     return Column(
       children: <Widget>[
         Container(
@@ -446,14 +491,14 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
             style: TextStyle(fontSize: 36),
           ),
         ),
+        buildAngleModeToggle(), // Angle mode selection UI
         Expanded(
           child: GridView.builder(
             itemCount: buttons.length,
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,
-              childAspectRatio:
-                  (width / height * 2),
+              childAspectRatio: (width / height * 2),
             ),
             itemBuilder: (context, index) {
               return MyButton(
@@ -464,9 +509,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
                   handleClick(buttons[index]);
                 },
               );
-            }
-          )
-        )
+            },
+          ),
+        ),
       ],
     );
   }
