@@ -129,9 +129,8 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     });
   }
 
-  /*void calculateLn2() {
-    final number = double.parse(display);
-    final result = log(number);
+  void calculateLn2() {
+    const result = ln2;
     setState(() {
       display = result.toString();
       num1 = result;
@@ -139,7 +138,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       operation = '';
       answer = result;
     });
-  }*/
+  }
   
   
   void calculateCubed(){
@@ -155,13 +154,19 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
   
   
-  /*
-  void calculateLogyX{
-    
-    
+  
+  void calculateSquareRoot1_2(){
+    const result = sqrt1_2;
+    setState(() {
+      display = result.toString();
+      num1 = result;
+      num2 = 0.0;
+      operation = '';
+      answer = result;
+    });    
   }
   
-  */
+
 
   void handleClick(String input) {
       if (input == 'log'){
@@ -177,6 +182,10 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
         handleAbsoluteValue();
       } else if (input == 'x³'){
         calculateCubed();
+      } else if (input == 'ln2'){
+        calculateLn2();
+      } else if (input == 'sqrt(1/2)'){
+        calculateSquareRoot1_2();
       } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
         handleOperation(input);
       } else if (input == 'C') {
@@ -223,7 +232,6 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       });
     }
 
-
   void handleOperation(String op) {
     setState(() {
       if (num1 == 0.0) {
@@ -267,7 +275,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
 
   final List buttons = [
-    'C', 'e', 'pi', '±', '', 'exp', 'log', '|x|', 'x³', '/', 'ln', '7', '8', '9', '*', '\u03C6', '4', '5', '6','+', '', '1', '2', '3','-', '', '', '0', '.', '='
+    'C', 'e', 'pi', '±', '', 'sqrt(1/2)', 'log', '|x|', 'x³', '/', 'exp', '7', '8', '9', '*', '\u03C6', '4', '5', '6','+', '\u221B', '1', '2', '3','-', 'ln2', 'ln', '0', '.', '='
   ];
 
   @override
