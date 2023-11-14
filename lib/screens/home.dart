@@ -1,3 +1,4 @@
+import 'package:ase456_group_project/screens/advanced.dart';
 import 'package:ase456_group_project/screens/scientific.dart';
 import 'package:flutter/material.dart';
 import 'package:ase456_group_project/screens/simple.dart';
@@ -25,7 +26,7 @@ class _HomePageState extends State<Home> {
       appBar: AppBar(
         title: const Text(''),
       ),
-      body: [Simple(), ScientificCalculator()][tab],
+      body: [Simple(), ScientificCalculator(), AdvancedCalculator()][tab],
       drawer: Drawer(
         child: ListView(
           children: [

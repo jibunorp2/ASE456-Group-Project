@@ -362,7 +362,6 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         } else {
           display = input;
         }
-        //answer = 0;
       } else {
         display += input;
       }
