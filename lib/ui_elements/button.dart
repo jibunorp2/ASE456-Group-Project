@@ -14,6 +14,10 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var backgroundColor = buttonColor;
+    if (text == '') {
+      backgroundColor = Colors.transparent;
+    }
     return GestureDetector(
       onTap: function,
       child: Padding(
@@ -23,7 +27,7 @@ class MyButton extends StatelessWidget {
           child: Container(
               height: 10,
               width: 10,
-              color: buttonColor,
+              color: backgroundColor,
               child: Center(
                 child: Text(text,
                     style: TextStyle(
