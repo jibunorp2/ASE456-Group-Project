@@ -45,14 +45,9 @@ class _MoneyState extends State<Money> {
     'THB',
   ];
 
-  final apiKey = 'f794ffd8b3f030b47e1b';
-
-  // Example API response for converting 1 USD to EUR
-  // {"USD_EUR":0.93445}
-  // Link to submit: https://free.currconv.com/api/v7/convert?q=USD_EUR&compact=ultra&apiKey=f794ffd8b3f030b47e1b
-
   Future<double> convertCurrencies(
       String fromCurrency, String toCurrency, double amount) async {
+    const apiKey = 'f794ffd8b3f030b47e1b';
     final q = '${fromCurrency}_$toCurrency';
     final apiUrl = Uri.https('free.currconv.com', '/api/v7/convert', {
       'q': q,
