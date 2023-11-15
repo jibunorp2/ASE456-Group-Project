@@ -31,14 +31,6 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     });
   }
 
-  /*void handleLog() {
-    if (display != '0') {
-      setState(() {
-        display = 'log(';
-      });
-    }
-  }*/
-
 
   void calculateLog() {
     if (isLogOperation) {
@@ -119,7 +111,6 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     final result = pow(number, 3);
     setState(() {
       display = '$number³ = $result';
-      //display = result.toString();
       num1 = result.toDouble();
       num2 = 0.0;
       answer = result.toDouble();
