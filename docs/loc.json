@@ -1,4 +1,5 @@
 {"11-3-23" : {
+  "header":{
     "cloc_url"           : "github.com/AlDanial/cloc",
     "cloc_version"       : "1.98",
     "elapsed_seconds"    : 0.0569732189178467,
@@ -26,4 +27,51 @@
     "comment": 0,
     "code": 280,
     "nFiles": 3} 
+  },
+  "11-13-23":{
+    "spencer": {
+    "header" : {
+      "cloc_url"           : "github.com/AlDanial/cloc",
+      "cloc_version"       : "1.98",
+      "elapsed_seconds"    : 0.038640022277832,
+      "n_files"            : 6,
+      "n_lines"            : 656,
+      "files_per_second"   : 155.279413579485,
+      "lines_per_second"   : 16977.2158846904},
+    ".\\lib\\screens\\unit.dart" :{
+      "blank": 8,
+      "comment": 0,
+      "code": 194,
+      "language": "Dart"},
+    ".\\lib\\screens\\money.dart" :{
+      "blank": 10,
+      "comment": 0,
+      "code": 170,
+      "language": "Dart"},
+    ".\\lib\\screens\\simple.dart" :{
+      "blank": 12,
+      "comment": 0,
+      "code": 147,
+      "language": "Dart"},
+    ".\\lib\\screens\\home.dart" :{
+      "blank": 5,
+      "comment": 0,
+      "code": 54,
+      "language": "Dart"},
+    ".\\lib\\ui_elements\\button.dart" :{
+      "blank": 3,
+      "comment": 0,
+      "code": 35,
+      "language": "Dart"},
+    ".\\lib\\main.dart" :{
+      "blank": 3,
+      "comment": 0,
+      "code": 15,
+      "language": "Dart"},
+    "SUM": {
+      "blank": 41,
+      "comment": 0,
+      "code": 615,
+      "nFiles": 6}
+  }}
 }
