@@ -242,22 +242,34 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   void handleClick(String input) {
     if (input == 'sin') {
       isSinOperation = true;
-      display ='sin(';
+      setState(() {
+          display = 'sin(';
+      });
     } else if (input == 'cos') {
       isCosOperation = true;
-      display = 'cos(';
+      setState(() {
+          display = 'cos(';
+      });
     } else if (input =='tan'){
       isTanOperation = true;
-      display = 'tan(';
+      setState(() {
+          display = 'tan(';
+      });
     } else if (input == 'asin'){
       isArcSinOperation = true;
-      display = 'asin(';
+      setState(() {
+          display = 'asin(';
+      });
     } else if (input == 'acos'){
       isArcCosOperation = true;
-      display ='acos(';
+      setState(() {
+          display = 'acos(';
+      });
     } else if (input == 'atan'){
       isArcTanOperation = true;
-      display = 'atan(';
+      setState(() {
+          display = 'atan(';
+      });
     } else if (input == '!'){
       isFactorial = true;
       setState(() {
@@ -270,13 +282,19 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       });
     } else if (input == '\u{221A}'){
       isSquareRoot = true;
-      display = '\u{221A}';
+      setState(() {
+        display = '\u{221A}';
+      });
     } else if (input == '%'){
-      display += '%';
       isMod = true;
+      setState(() {
+        display += '%';
+      });
     } else if (input == '1/x'){
-      display = '1/(';
       isReciprocal = true;
+      setState(() {
+        display = '1/(';
+      });
     } else if (input == '^2'){
       isSquared = true;
       setState(() {
@@ -335,6 +353,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         });
       } else if (isReciprocal) {
         calculateReciprocal();
+        isReciprocal = false;
       } else if (isSquared) {
         double value = double.parse(display.substring(0, display.length - 2));
         double squaredValue = calculateSquared(value);
@@ -356,12 +375,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   void handleInput(String input) {
     setState(() {
       if (answer != 0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
-        if (isSinOperation || isCosOperation || isTanOperation || isArcSinOperation || isArcCosOperation || isArcTanOperation || isFactorial) {
-          value = input;
-          display += input;
-        } else {
-          display = input;
-        }
+        display = input;
+        answer = 0;
       } else {
         display += input;
       }

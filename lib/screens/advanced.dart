@@ -17,6 +17,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   double answer = 0.0;
   double logBase = 10.0;
   bool isLogOperation = false;
+  bool isCubedRoot = false;
   static const double phi = 1.618033988749895; //golden ratio
 
 
@@ -30,42 +31,14 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     });
   }
 
-  /*void handleDelete(){
-    final numberString = double.parse(display).toString();
-    List<String> n = numberString.split("");
-    var stringWithLastValueRemoved = n.removeLast();
-    var number1 = n.join();
-    //final numberToDelete = double.parse(display).toString();
-    //var output = '';
-    //if (numberToDelete.isNotEmpty){
-    //  output = numberToDelete[numberToDelete.length - 1]; //is the last number of the string
-    //}
-    setState(() {
-        display = stringWithLastValueRemoved;
-        num1 = double.parse(number1);
-        //num2 = 0.0;
-      });
-  }
-
-  void handleDelete() {
-    final numberString = double.parse(display).toString();
-    List<String> n = numberString.split("");
-    n.removeLast(); 
-    
-    if (n.isEmpty) {
+  /*void handleLog() {
+    if (display != '0') {
       setState(() {
-        display = '0';
-        num1 = 0.0;
-      });
-    } else {
-      var number1 = n.join();
-      //possibly something with the way it joined
-      setState(() {
-        display = number1;
-        num1 = double.parse(number1);
+        display = 'log(';
       });
     }
   }*/
+
 
   void calculateLog() {
     if (isLogOperation) {
@@ -167,11 +140,32 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
   
 
+  void calculateCubedRoot() {
+    if (isCubedRoot) {
+      final numberString = display.substring(1);
+      if (numberString.isNotEmpty && !numberString.contains(',')) {
+        final number = double.parse(numberString.replaceAll(',', ''));
+        final result = pow(number, 1 / 3);
+        final formattedResult = result.toStringAsFixed(16);
+        setState(() {
+          display = '\u221B($numberString) = $formattedResult';
+          num1 = result.toDouble();
+          num2 = 0.0;
+          operation = '';
+          answer = result.toDouble();
+          isCubedRoot = false;
+        });
+      }
+    }
+  }
+
 
   void handleClick(String input) {
       if (input == 'log'){
         isLogOperation = true;
-        display = 'log(';
+        setState(() {
+          display = 'log(';
+        });
       } else if (input == '±'){
         handleNegation();
       } else if (input == 'ln'){
@@ -186,13 +180,21 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
         calculateLn2();
       } else if (input == 'sqrt(1/2)'){
         calculateSquareRoot1_2();
-      } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
+      } else if (input == '\u221B') {
+          setState(() {
+            isCubedRoot = true;
+            display = '\u221B';
+          });
+        calculateCubedRoot();
+    } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
         handleOperation(input);
       } else if (input == 'C') {
         clear();
       } else if (input == '=') {
         if (isLogOperation){
           calculateLog();
+        } else if (isCubedRoot){
+          calculateCubedRoot();
         } else {
           calculate();
         }
@@ -275,7 +277,36 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
 
   final List buttons = [
-    'C', 'e', 'pi', '±', '', 'sqrt(1/2)', 'log', '|x|', 'x³', '/', 'exp', '7', '8', '9', '*', '\u03C6', '4', '5', '6','+', '\u221B', '1', '2', '3','-', 'ln2', 'ln', '0', '.', '='
+    'C', 
+    'e', 
+    'pi', 
+    '±', 
+    '', 
+    'sqrt(1/2)', 
+    'log', 
+    '|x|', 
+    'x³', 
+    '/', 
+    'exp', 
+    '7', 
+    '8', 
+    '9', 
+    '*', 
+    '\u03C6', 
+    '4', 
+    '5', 
+    '6',
+    '+',
+    '\u221B', //cubed root
+    '1', 
+    '2', 
+    '3',
+    '-', 
+    'ln2', 
+    'ln', 
+    '0', 
+    '.', 
+    '='
   ];
 
   @override
@@ -287,16 +318,16 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
         Container(
           height: height / 4,
           alignment: Alignment.bottomRight,
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Text(
             display,
-            style: TextStyle(fontSize: 36),
+            style: const TextStyle(fontSize: 36),
           ),
         ),
         Expanded(
           child: GridView.builder(
             itemCount: buttons.length,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,
               childAspectRatio:
