@@ -107,7 +107,7 @@ class _MoneyState extends State<Money> {
                       border: OutlineInputBorder(),
                       labelText: 'Amount',
                     ),
-                    onChanged: (String value) async {
+                    onSubmitted: (String value) async {
                       if (value.isEmpty) return;
                       _leftAmount = double.parse(value);
                       final convertedAmount = await convertCurrencies(
@@ -151,7 +151,7 @@ class _MoneyState extends State<Money> {
                       border: OutlineInputBorder(),
                       labelText: 'Amount',
                     ),
-                    onChanged: (String value) async {
+                    onSubmitted: (String value) async {
                       if (value.isEmpty) return;
                       _rightAmount = double.parse(value);
                       final convertedAmount = await convertCurrencies(
