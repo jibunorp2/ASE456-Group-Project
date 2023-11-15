@@ -25,7 +25,6 @@
 [additional-requriements]
 * Ability to see negative sign before an input is presented/on 0
 [current-erros]
-* Unsure of button 1,3 function
 * 3√ does not function: no error thrown
 * log does not display when pressed
 
