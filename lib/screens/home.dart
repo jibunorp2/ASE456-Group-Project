@@ -3,7 +3,7 @@ import 'package:ase456_group_project/screens/scientific.dart';
 import 'package:flutter/material.dart';
 import 'package:ase456_group_project/screens/simple.dart';
 import 'package:ase456_group_project/screens/money.dart';
-//import 'package:ase456_group_project/screens/unit.dart';
+import 'package:ase456_group_project/screens/unit.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _HomePageState extends State<Home> {
       appBar: AppBar(
         title: const Text(''),
       ),
-      body: [Simple(), ScientificCalculator(), AdvancedCalculator(), Money()][tab],
+      body: [Simple(), ScientificCalculator(), AdvancedCalculator(), Money(), Unit()][tab],
       drawer: Drawer(
         child: ListView(
           children: [
@@ -60,13 +60,13 @@ class _HomePageState extends State<Home> {
                 selectItem(3);
               },
             ),
-            // ListTile(
-            //   leading: const Icon(Icons.arrow_right),
-            //   title: const Text("Units Converter"),
-            //   onTap: () {
-            //     selectItem(4);
-            //   },
-            // ),
+            ListTile(
+              leading: const Icon(Icons.arrow_right),
+              title: const Text("Units Converter"),
+              onTap: () {
+                selectItem(4);
+              },
+            ),
           ],
         ),
       ),

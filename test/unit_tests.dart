@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ase456_group_project/ui_elements/button.dart';
 import 'package:ase456_group_project/screens/simple.dart';
+import 'package:ase456_group_project/screens/unit.dart';
 
 void main() {
-  testWidgets('Initial state of Simple widget', (WidgetTester tester) async {
+  /* 
+  ---------------------------------------------------------------------------------------
+  SIMPLE.DART 
+  ---------------------------------------------------------------------------------------
+  */
+  testWidgets('simple: Initial state of Simple widget', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     expect(
@@ -19,7 +25,7 @@ void main() {
     expect(find.byType(MyButton), findsWidgets);
   });
 
-  testWidgets('test addition', (WidgetTester tester) async {
+  testWidgets('simple: test addition', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     await tapButton(tester, '1');
@@ -32,7 +38,7 @@ void main() {
     expect(find.text('46.0'), findsOneWidget);
   });
 
-  testWidgets('test subtration', (WidgetTester tester) async {
+  testWidgets('simple: test subtration', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     await tapButton(tester, '1');
@@ -44,7 +50,7 @@ void main() {
     expect(find.text('9.0'), findsOneWidget);
   });
 
-  testWidgets('test multiplication', (WidgetTester tester) async {
+  testWidgets('simple: test multiplication', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     await tapButton(tester, '1');
@@ -56,7 +62,7 @@ void main() {
     expect(find.text('36.0'), findsOneWidget);
   });
 
-  testWidgets('test division', (WidgetTester tester) async {
+  testWidgets('simple: test division', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     await tapButton(tester, '1');
@@ -68,7 +74,7 @@ void main() {
     expect(find.text('4.0'), findsOneWidget);
   });
 
-  testWidgets('test decimal use', (WidgetTester tester) async {
+  testWidgets('simple: test decimal use', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     await tapButton(tester, '1');
@@ -82,7 +88,7 @@ void main() {
     expect(find.text('9.2'), findsOneWidget);
   });
 
-  testWidgets('test clear', (WidgetTester tester) async {
+  testWidgets('simple: test clear', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple()));
 
     await tapButton(tester, '1');
@@ -103,6 +109,25 @@ void main() {
       ),
       findsOneWidget,
     );
+  });
+
+  /* 
+  ---------------------------------------------------------------------------------------
+  unit.DART 
+  ---------------------------------------------------------------------------------------
+  */
+  testWidgets('unit: test density', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Unit()));
+    Finder textFieldFinder = find.widgetWithText(TextField, 'Amount').first;
+
+    await tapButton(tester, 'AMOUNT_OF_SUBSTANCE');
+    await tapButton(tester, 'DENSITY');
+    await tester.pump();
+    await tester.enterText(textFieldFinder, '40');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pump();
+
+    expect(find.text('4000'), findsOneWidget);
   });
 }
 
