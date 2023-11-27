@@ -3,7 +3,10 @@ import '../ui_elements/button.dart';
 import 'dart:math';
 
 class AdvancedCalculator extends StatefulWidget {
-  const AdvancedCalculator({Key? key}) : super(key: key);
+  const AdvancedCalculator({Key? key, required this.buttonColor})
+      : super(key: key);
+
+  final Color buttonColor;
 
   @override
   State<AdvancedCalculator> createState() => _AdvancedCalculator();
@@ -20,7 +23,6 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   bool isCubedRoot = false;
   static const double phi = 1.618033988749895; //golden ratio
 
-
   void clear() {
     setState(() {
       display = '0';
@@ -31,10 +33,9 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     });
   }
 
-
   void calculateLog() {
     if (isLogOperation) {
-      final number = double.parse(display.substring(4)); 
+      final number = double.parse(display.substring(4));
       final result = log(number) / log(logBase);
       setState(() {
         display = result.toString();
@@ -42,7 +43,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
         num2 = 0.0;
         operation = '';
         answer = result;
-        isLogOperation = false; 
+        isLogOperation = false;
       });
     }
   }
@@ -71,7 +72,8 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     });
   }
 
-  void calculateExp() { // calculate exponential calculations
+  void calculateExp() {
+    // calculate exponential calculations
     final number = double.parse(display);
     final result = exp(number);
     setState(() {
@@ -86,7 +88,7 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   void handleAbsoluteValue() {
     double number = double.parse(display);
     double result = number.abs();
-    
+
     setState(() {
       display = '|$number| = $result';
       answer = result;
@@ -104,9 +106,8 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       answer = result;
     });
   }
-  
-  
-  void calculateCubed(){
+
+  void calculateCubed() {
     double number = double.parse(display);
     final result = pow(number, 3);
     setState(() {
@@ -116,10 +117,8 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       answer = result.toDouble();
     });
   }
-  
-  
-  
-  void calculateSquareRoot1_2(){
+
+  void calculateSquareRoot1_2() {
     const result = sqrt1_2;
     setState(() {
       display = result.toString();
@@ -127,9 +126,8 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
       num2 = 0.0;
       operation = '';
       answer = result;
-    });    
+    });
   }
-  
 
   void calculateCubedRoot() {
     if (isCubedRoot) {
@@ -150,80 +148,79 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
     }
   }
 
-
   void handleClick(String input) {
-      if (input == 'log'){
-        isLogOperation = true;
-        setState(() {
-          display = 'log(';
-        });
-      } else if (input == '±'){
-        handleNegation();
-      } else if (input == 'ln'){
-        calculateLn();
-      } else if (input == 'exp'){
-        calculateExp();
-      } else if (input == '|x|'){
-        handleAbsoluteValue();
-      } else if (input == 'x³'){
-        calculateCubed();
-      } else if (input == 'ln2'){
-        calculateLn2();
-      } else if (input == 'sqrt(1/2)'){
-        calculateSquareRoot1_2();
-      } else if (input == '\u221B') {
-          setState(() {
-            isCubedRoot = true;
-            display = '\u221B';
-          });
-        calculateCubedRoot();
-    } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
-        handleOperation(input);
-      } else if (input == 'C') {
-        clear();
-      } else if (input == '=') {
-        if (isLogOperation){
-          calculateLog();
-        } else if (isCubedRoot){
-          calculateCubedRoot();
-        } else {
-          calculate();
-        }
-      } else{
-        handleInput(input);
-      }
-    }
-
-    void handleInput(String input) {
+    if (input == 'log') {
+      isLogOperation = true;
       setState(() {
-        if (answer != 0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
-          if (input == 'pi') {
-            display = pi.toString();
-          } else if (input == 'e') {
-            display = e.toString();
-          } else if (input == '\u03C6') {
-            display = phi.toString();
-          } else if (isLogOperation){
-            display += input;
-          } else {
-            display = input;
-          }
-          answer = 0;
-        } else {
-          if (input == 'pi') {
-            display += pi.toString();
-          } else if (input == 'e') {
-            display += e.toString();
-          } else {
-            display += input;
-          }
-        }
-
-        if (operation.isNotEmpty) {
-          num2 = double.parse(display);
-        }
+        display = 'log(';
       });
+    } else if (input == '±') {
+      handleNegation();
+    } else if (input == 'ln') {
+      calculateLn();
+    } else if (input == 'exp') {
+      calculateExp();
+    } else if (input == '|x|') {
+      handleAbsoluteValue();
+    } else if (input == 'x³') {
+      calculateCubed();
+    } else if (input == 'ln2') {
+      calculateLn2();
+    } else if (input == 'sqrt(1/2)') {
+      calculateSquareRoot1_2();
+    } else if (input == '\u221B') {
+      setState(() {
+        isCubedRoot = true;
+        display = '\u221B';
+      });
+      calculateCubedRoot();
+    } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
+      handleOperation(input);
+    } else if (input == 'C') {
+      clear();
+    } else if (input == '=') {
+      if (isLogOperation) {
+        calculateLog();
+      } else if (isCubedRoot) {
+        calculateCubedRoot();
+      } else {
+        calculate();
+      }
+    } else {
+      handleInput(input);
     }
+  }
+
+  void handleInput(String input) {
+    setState(() {
+      if (answer != 0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
+        if (input == 'pi') {
+          display = pi.toString();
+        } else if (input == 'e') {
+          display = e.toString();
+        } else if (input == '\u03C6') {
+          display = phi.toString();
+        } else if (isLogOperation) {
+          display += input;
+        } else {
+          display = input;
+        }
+        answer = 0;
+      } else {
+        if (input == 'pi') {
+          display += pi.toString();
+        } else if (input == 'e') {
+          display += e.toString();
+        } else {
+          display += input;
+        }
+      }
+
+      if (operation.isNotEmpty) {
+        num2 = double.parse(display);
+      }
+    });
+  }
 
   void handleOperation(String op) {
     setState(() {
@@ -268,35 +265,35 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
   }
 
   final List buttons = [
-    'C', 
-    'e', 
-    'pi', 
-    '±', 
-    '', 
-    'sqrt(1/2)', 
-    'log', 
-    '|x|', 
-    'x³', 
-    '/', 
-    'exp', 
-    '7', 
-    '8', 
-    '9', 
-    '*', 
-    '\u03C6', 
-    '4', 
-    '5', 
+    'C',
+    'e',
+    'pi',
+    '±',
+    '',
+    'sqrt(1/2)',
+    'log',
+    '|x|',
+    'x³',
+    '/',
+    'exp',
+    '7',
+    '8',
+    '9',
+    '*',
+    '\u03C6',
+    '4',
+    '5',
     '6',
     '+',
     '\u221B', //cubed root
-    '1', 
-    '2', 
+    '1',
+    '2',
     '3',
-    '-', 
-    'ln2', 
-    'ln', 
-    '0', 
-    '.', 
+    '-',
+    'ln2',
+    'ln',
+    '0',
+    '.',
     '='
   ];
 
@@ -316,26 +313,23 @@ class _AdvancedCalculator extends State<AdvancedCalculator> {
           ),
         ),
         Expanded(
-          child: GridView.builder(
-            itemCount: buttons.length,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              childAspectRatio:
-                  (width / height * 2),
-            ),
-            itemBuilder: (context, index) {
-              return MyButton(
-                text: buttons[index],
-                buttonColor: Colors.deepPurple[100],
-                textColor: Colors.black,
-                function: () {
-                  handleClick(buttons[index]);
-                },
-              );
-            }
-          )
-        )
+            child: GridView.builder(
+                itemCount: buttons.length,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  childAspectRatio: (width / height * 2),
+                ),
+                itemBuilder: (context, index) {
+                  return MyButton(
+                    text: buttons[index],
+                    buttonColor: widget.buttonColor,
+                    textColor: Colors.black,
+                    function: () {
+                      handleClick(buttons[index]);
+                    },
+                  );
+                }))
       ],
     );
   }

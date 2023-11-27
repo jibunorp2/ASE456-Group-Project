@@ -1,5 +1,6 @@
 import 'package:ase456_group_project/screens/advanced.dart';
 import 'package:ase456_group_project/screens/scientific.dart';
+import 'package:ase456_group_project/ui_elements/color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ase456_group_project/screens/simple.dart';
 import 'package:ase456_group_project/screens/money.dart';
@@ -14,6 +15,7 @@ class Home extends StatefulWidget {
 
 class _HomePageState extends State<Home> {
   int tab = 0;
+  Color buttonColor = Colors.blue; // Initial color for buttons
 
   void selectItem(int itemIndex) {
     setState(() {
@@ -22,13 +24,31 @@ class _HomePageState extends State<Home> {
     Navigator.pop(context);
   }
 
+  // Callback function to update button color
+  void updateButtonColor(Color color) {
+    setState(() {
+      buttonColor = color;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        actions: [
+          ColorPickerButton(
+              onColorSelected:
+                  updateButtonColor), // Add the color picker button to the app bar
+        ],
       ),
-      body: [Simple(), ScientificCalculator(), AdvancedCalculator(), Money(), Unit()][tab],
+      body: [
+        Simple(buttonColor: buttonColor),
+        ScientificCalculator(buttonColor: buttonColor,),
+        AdvancedCalculator(buttonColor: buttonColor,),
+        Money(),
+        Unit()
+      ][tab],
       drawer: Drawer(
         child: ListView(
           children: [
