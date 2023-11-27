@@ -27,6 +27,8 @@
 [current-erros]
 * 3√ does not function: no error thrown
 * log does not display when pressed
+* cannot add two negative numbers
+* cannot use funtions in tandem (ex: sqrt(1/2) + exp)
 
 [additional-requriements]
 * Ability to clearly see which function is being used <n>
