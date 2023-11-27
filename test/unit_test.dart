@@ -32,7 +32,7 @@ void main() {
   */
   testWidgets('simple: Initial state of Simple widget',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     expect(
       find.byWidgetPredicate(
@@ -47,7 +47,7 @@ void main() {
   }, tags: 'simple');
 
   testWidgets('simple: test addition', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -60,7 +60,7 @@ void main() {
   }, tags: 'simple');
 
   testWidgets('simple: test subtration', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -72,7 +72,7 @@ void main() {
   }, tags: 'simple');
 
   testWidgets('simple: test multiplication', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -84,7 +84,7 @@ void main() {
   }, tags: 'simple');
 
   testWidgets('simple: test division', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -96,7 +96,7 @@ void main() {
   }, tags: 'simple');
 
   testWidgets('simple: test decimal use', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -110,7 +110,7 @@ void main() {
   }, tags: 'simple');
 
   testWidgets('simple: test clear', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: Simple()));
+    await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -241,7 +241,7 @@ void main() {
   */
 
   testWidgets('advanced: Test basic functions', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator()));
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '2');
@@ -254,7 +254,7 @@ void main() {
   }, tags: 'advanced');
 
   testWidgets('advanced: Clear input', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator()));
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '3');
@@ -276,7 +276,7 @@ void main() {
   }, tags: 'advanced');
 
   testWidgets('advanced: Negative number test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator()));
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
     await tapButton(tester, '±');
@@ -292,7 +292,7 @@ void main() {
   }, tags: 'advanced');
 
   testWidgets('advanced: log test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator()));
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, 'log');
     await tapButton(tester, '9');
@@ -303,7 +303,7 @@ void main() {
   }, tags: 'advanced');
 
   testWidgets('advanced: constants test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator()));
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, 'pi');
     await tapButton(tester, '+');
@@ -315,7 +315,7 @@ void main() {
 
   testWidgets('advanced: using functions in tandem',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator()));
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '8');
     await tapButton(tester, 'sqrt(1/2)');
@@ -335,7 +335,7 @@ void main() {
 
   testWidgets('Test sin button', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator()));
+    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
 
     expect(find.text('0'), findsOneWidget);
   }, tags: 'scientific');
