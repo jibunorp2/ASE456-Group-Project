@@ -3,7 +3,10 @@ import '../ui_elements/button.dart';
 import 'dart:math';
 
 class ScientificCalculator extends StatefulWidget {
-  const ScientificCalculator({Key? key}) : super(key: key);
+  const ScientificCalculator({Key? key, required this.buttonColor})
+      : super(key: key);
+
+  final Color buttonColor;
 
   @override
   State<ScientificCalculator> createState() => _ScientificCalculatorState();
@@ -37,7 +40,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     if (isSinOperation) {
       final number = currentMode == AngleMode.radians
           ? double.parse(display.substring(4))
-          : (double.parse(display.substring(4)) * (pi / 180)); // Convert degrees to radians
+          : (double.parse(display.substring(4)) *
+              (pi / 180)); // Convert degrees to radians
       final result = sin(number);
       setState(() {
         display = result.toString();
@@ -54,7 +58,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     if (isCosOperation) {
       final number = currentMode == AngleMode.radians
           ? double.parse(display.substring(4))
-          : (double.parse(display.substring(4)) * (pi / 180)); // Convert degrees to radians
+          : (double.parse(display.substring(4)) *
+              (pi / 180)); // Convert degrees to radians
       final result = cos(number);
       setState(() {
         display = result.toString();
@@ -67,12 +72,12 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-
   void calculateTan() {
     if (isTanOperation) {
       final number = currentMode == AngleMode.radians
           ? double.parse(display.substring(4))
-          : (double.parse(display.substring(4)) * (pi / 180)); // Convert degrees to radians
+          : (double.parse(display.substring(4)) *
+              (pi / 180)); // Convert degrees to radians
       final result = tan(number);
       setState(() {
         display = result.toString();
@@ -89,25 +94,26 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     if (isArcSinOperation) {
       final number = currentMode == AngleMode.radians
           ? double.parse(display.substring(5))
-          : (double.parse(display.substring(5)) * (pi / 180)); // Convert degrees to radians
+          : (double.parse(display.substring(5)) *
+              (pi / 180)); // Convert degrees to radians
       final result = asin(number);
       setState(() {
         display = result.toString();
-          num1 = result;
-          num2 = 0.0;
-          operation = '';
-          answer = result;
-          isArcSinOperation = false;
+        num1 = result;
+        num2 = 0.0;
+        operation = '';
+        answer = result;
+        isArcSinOperation = false;
       });
     }
   }
-
 
   void calculateArcCos() {
     if (isArcCosOperation) {
       final number = currentMode == AngleMode.radians
           ? double.parse(display.substring(5))
-          : (double.parse(display.substring(5)) * (pi / 180)); // Convert degrees to radians
+          : (double.parse(display.substring(5)) *
+              (pi / 180)); // Convert degrees to radians
       final result = acos(number);
       setState(() {
         display = result.toString();
@@ -124,7 +130,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     if (isArcTanOperation) {
       final number = currentMode == AngleMode.radians
           ? double.parse(display.substring(5))
-          : (double.parse(display.substring(5)) * (pi / 180)); // Convert degrees to radians
+          : (double.parse(display.substring(5)) *
+              (pi / 180)); // Convert degrees to radians
       final result = atan(number);
       setState(() {
         display = result.toString();
@@ -138,7 +145,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   }
 
   void calculateSquareRoot() {
-    if (isSquareRoot){
+    if (isSquareRoot) {
       final number = double.parse(display.substring(1));
       final result = sqrt(number);
       setState(() {
@@ -152,9 +159,9 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-  double calculateFactorial(double value){
-    if (value is int){
-      if (value == 0 || value == 1){
+  double calculateFactorial(double value) {
+    if (value is int) {
+      if (value == 0 || value == 1) {
         return 1;
       } else {
         return value * calculateFactorial(value - 1);
@@ -164,8 +171,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     }
   }
 
-  double calculateExponent(double value, double exponent){
-    if (value is int && exponent is int){
+  double calculateExponent(double value, double exponent) {
+    if (value is int && exponent is int) {
       return pow(value, exponent).toDouble();
     } else {
       return 0;
@@ -243,69 +250,68 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     if (input == 'sin') {
       isSinOperation = true;
       setState(() {
-          display = 'sin(';
+        display = 'sin(';
       });
     } else if (input == 'cos') {
       isCosOperation = true;
       setState(() {
-          display = 'cos(';
+        display = 'cos(';
       });
-    } else if (input =='tan'){
+    } else if (input == 'tan') {
       isTanOperation = true;
       setState(() {
-          display = 'tan(';
+        display = 'tan(';
       });
-    } else if (input == 'asin'){
+    } else if (input == 'asin') {
       isArcSinOperation = true;
       setState(() {
-          display = 'asin(';
+        display = 'asin(';
       });
-    } else if (input == 'acos'){
+    } else if (input == 'acos') {
       isArcCosOperation = true;
       setState(() {
-          display = 'acos(';
+        display = 'acos(';
       });
-    } else if (input == 'atan'){
+    } else if (input == 'atan') {
       isArcTanOperation = true;
       setState(() {
-          display = 'atan(';
+        display = 'atan(';
       });
-    } else if (input == '!'){
+    } else if (input == '!') {
       isFactorial = true;
       setState(() {
         display += '!';
       });
-    } else if (input == '^'){
+    } else if (input == '^') {
       isExponent = true;
       setState(() {
         display += '^';
       });
-    } else if (input == '\u{221A}'){
+    } else if (input == '\u{221A}') {
       isSquareRoot = true;
       setState(() {
         display = '\u{221A}';
       });
-    } else if (input == '%'){
+    } else if (input == '%') {
       isMod = true;
       setState(() {
         display += '%';
       });
-    } else if (input == '1/x'){
+    } else if (input == '1/x') {
       isReciprocal = true;
       setState(() {
         display = '1/(';
       });
-    } else if (input == '^2'){
+    } else if (input == '^2') {
       isSquared = true;
       setState(() {
         display += '^2';
-      }); 
-    } else if (input == 'x\u{221A}y'){
+      });
+    } else if (input == 'x\u{221A}y') {
       isNthRoot = true;
       setState(() {
         display += '\u{221A}';
       });
-      
     } else if (RegExp(r'[+\-*/]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
@@ -336,7 +342,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         double exponent = double.parse(parts[1]);
         double exponentialValue = calculateExponent(base, exponent);
         setState(() {
-          display =  exponentialValue.toString();
+          display = exponentialValue.toString();
           isExponent = false;
         });
       } else if (isExponent) {
@@ -349,7 +355,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
         double num2 = double.parse(parts[1]);
         double modValue = calculateMod(num1, num2);
         setState(() {
-          display =  modValue.toString();
+          display = modValue.toString();
         });
       } else if (isReciprocal) {
         calculateReciprocal();
@@ -432,28 +438,28 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   final List buttons = [
     'C', //1
     'sin',
-    'cos', 
-    'tan', 
+    'cos',
+    'tan',
     '!', //5
-    '^', 
-    'asin', 
-    'acos', 
-    'atan', 
+    '^',
+    'asin',
+    'acos',
+    'atan',
     '/', //10
     '\u{221A}',
     '7',
     '8',
     '9',
-    '*',//15
-    'x\u{221A}y', 
-    '4', 
-    '5', 
-    '6', 
-    '+',//20
+    '*', //15
+    'x\u{221A}y',
+    '4',
+    '5',
+    '6',
+    '+', //20
     '%',
-    '1', 
-    '2', 
-    '3', 
+    '1',
+    '2',
+    '3',
     '-', //25
     '1/x',
     '^2',
@@ -517,7 +523,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
             itemBuilder: (context, index) {
               return MyButton(
                 text: buttons[index],
-                buttonColor: Colors.deepPurple[100],
+                buttonColor: widget.buttonColor,
                 textColor: Colors.black,
                 function: () {
                   handleClick(buttons[index]);
