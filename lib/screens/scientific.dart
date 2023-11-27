@@ -3,7 +3,10 @@ import '../ui_elements/button.dart';
 import 'dart:math';
 
 class ScientificCalculator extends StatefulWidget {
-  const ScientificCalculator({Key? key}) : super(key: key);
+  const ScientificCalculator({Key? key, required this.buttonColor})
+      : super(key: key);
+
+  final Color buttonColor;
 
   @override
   State<ScientificCalculator> createState() => _ScientificCalculatorState();
@@ -247,34 +250,34 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
     if (input == 'sin') {
       isSinOperation = true;
       setState(() {
-          display = 'sin(';
+        display = 'sin(';
       });
     } else if (input == 'cos') {
       isCosOperation = true;
       setState(() {
-          display = 'cos(';
+        display = 'cos(';
       });
-    } else if (input =='tan'){
+    } else if (input == 'tan') {
       isTanOperation = true;
       setState(() {
-          display = 'tan(';
+        display = 'tan(';
       });
-    } else if (input == 'asin'){
+    } else if (input == 'asin') {
       isArcSinOperation = true;
       setState(() {
-          display = 'asin(';
+        display = 'asin(';
       });
-    } else if (input == 'acos'){
+    } else if (input == 'acos') {
       isArcCosOperation = true;
       setState(() {
-          display = 'acos(';
+        display = 'acos(';
       });
-    } else if (input == 'atan'){
+    } else if (input == 'atan') {
       isArcTanOperation = true;
       setState(() {
-          display = 'atan(';
+        display = 'atan(';
       });
-    } else if (input == '!'){
+    } else if (input == '!') {
       isFactorial = true;
       setState(() {
         display += '!';
@@ -289,17 +292,17 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       setState(() {
         display = '\u{221A}';
       });
-    } else if (input == '%'){
+    } else if (input == '%') {
       isMod = true;
       setState(() {
         display += '%';
       });
-    } else if (input == '1/x'){
+    } else if (input == '1/x') {
       isReciprocal = true;
       setState(() {
         display = '1/(';
       });
-    } else if (input == '^2'){
+    } else if (input == '^2') {
       isSquared = true;
       setState(() {
         display += '^2';
@@ -520,7 +523,7 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
             itemBuilder: (context, index) {
               return MyButton(
                 text: buttons[index],
-                buttonColor: Colors.deepPurple[100],
+                buttonColor: widget.buttonColor,
                 textColor: Colors.black,
                 function: () {
                   handleClick(buttons[index]);

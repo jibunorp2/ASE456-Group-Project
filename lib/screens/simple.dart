@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../ui_elements/button.dart';
 
 class Simple extends StatefulWidget {
-  const Simple({Key? key}) : super(key: key);
+  const Simple({Key? key, required this.buttonColor}) : super(key: key);
+
+  final Color buttonColor;
 
   @override
   State<Simple> createState() => _Simple();
@@ -133,23 +135,26 @@ class _Simple extends State<Simple> {
           ),
         ),
         Expanded(
-            child: GridView.builder(
-                itemCount: buttons.length,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: (width / height * 2),
-                ),
-                itemBuilder: (context, index) {
-                  return MyButton(
-                    text: buttons[index],
-                    buttonColor: Colors.deepPurple[100],
-                    textColor: Colors.black,
-                    function: () {
-                      handleClick(buttons[index]);
-                    },
-                  );
-                }))
+          child: GridView.builder(
+            itemCount: buttons.length,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              childAspectRatio:
+                  (width / height * 2),
+            ),
+            itemBuilder: (context, index) {
+              return MyButton(
+                text: buttons[index],
+                buttonColor: widget.buttonColor,
+                textColor: Colors.black,
+                function: () {
+                  handleClick(buttons[index]);
+                },
+              );
+            }
+          )
+        )
       ],
     );
   }
