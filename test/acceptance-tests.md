@@ -32,3 +32,11 @@
 * Ability to clearly see which function is being used <n>
 * Expected user input/output associated
 - When a button is pressed, there is a notification or chance to the display
+
+## Unit Conversions
+[current-errors]
+* Error thrown when incorrect input passed, needs on screen notification
+
+## Money Conversion
+[current-error]
+* Error thrown when incorrect input passed, needs on screen notification
