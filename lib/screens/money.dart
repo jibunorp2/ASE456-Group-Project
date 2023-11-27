@@ -47,7 +47,7 @@ class _MoneyState extends State<Money> {
 
   Future<double> convertCurrencies(
       String fromCurrency, String toCurrency, double amount) async {
-    const apiKey = 'f794ffd8b3f030b47e1b';
+    const apiKey = '5a77f3fdb7781f9a7584';
     final q = '${fromCurrency}_$toCurrency';
     final apiUrl = Uri.https('free.currconv.com', '/api/v7/convert', {
       'q': q,
@@ -66,6 +66,7 @@ class _MoneyState extends State<Money> {
         throw Exception('Failed to load data');
       }
     } catch (e) {
+      print(e);
       return 0.0;
     }
   }
