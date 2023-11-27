@@ -246,23 +246,35 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   void handleClick(String input) {
     if (input == 'sin') {
       isSinOperation = true;
-      display = 'sin(';
+      setState(() {
+          display = 'sin(';
+      });
     } else if (input == 'cos') {
       isCosOperation = true;
-      display = 'cos(';
-    } else if (input == 'tan') {
+      setState(() {
+          display = 'cos(';
+      });
+    } else if (input =='tan'){
       isTanOperation = true;
-      display = 'tan(';
-    } else if (input == 'asin') {
+      setState(() {
+          display = 'tan(';
+      });
+    } else if (input == 'asin'){
       isArcSinOperation = true;
-      display = 'asin(';
-    } else if (input == 'acos') {
+      setState(() {
+          display = 'asin(';
+      });
+    } else if (input == 'acos'){
       isArcCosOperation = true;
-      display = 'acos(';
-    } else if (input == 'atan') {
+      setState(() {
+          display = 'acos(';
+      });
+    } else if (input == 'atan'){
       isArcTanOperation = true;
-      display = 'atan(';
-    } else if (input == '!') {
+      setState(() {
+          display = 'atan(';
+      });
+    } else if (input == '!'){
       isFactorial = true;
       setState(() {
         display += '!';
@@ -274,14 +286,20 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
       });
     } else if (input == '\u{221A}') {
       isSquareRoot = true;
-      display = '\u{221A}';
-    } else if (input == '%') {
-      display += '%';
+      setState(() {
+        display = '\u{221A}';
+      });
+    } else if (input == '%'){
       isMod = true;
-    } else if (input == '1/x') {
-      display = '1/(';
+      setState(() {
+        display += '%';
+      });
+    } else if (input == '1/x'){
       isReciprocal = true;
-    } else if (input == '^2') {
+      setState(() {
+        display = '1/(';
+      });
+    } else if (input == '^2'){
       isSquared = true;
       setState(() {
         display += '^2';
@@ -360,18 +378,8 @@ class _ScientificCalculatorState extends State<ScientificCalculator> {
   void handleInput(String input) {
     setState(() {
       if (answer != 0 || RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
-        if (isSinOperation ||
-            isCosOperation ||
-            isTanOperation ||
-            isArcSinOperation ||
-            isArcCosOperation ||
-            isArcTanOperation ||
-            isFactorial) {
-          value = input;
-          display += input;
-        } else {
-          display = input;
-        }
+        display = input;
+        answer = 0;
       } else {
         display += input;
       }
