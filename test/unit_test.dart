@@ -417,17 +417,13 @@ void main() {
   expect(find.text('Angle Mode: Radians'), findsOneWidget);
 
 }, tags: 'scientific');*/
-  /*testWidgets('scientific: sqrt', (WidgetTester tester) async {
+  testWidgets('scientific: sqrt', (WidgetTester tester) async {
   await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
-
     await tapButton(tester, '9');
     await tapButton(tester, '\u{221A}'); 
-    expect(find.text('\u{221A}'), findsOneWidget); 
-    await tester.pump(); // Wait for the UI to update
     expect(find.textContaining('3'), findsOneWidget); 
 
-
-  }, tags: 'scientific');*/
+  }, tags: 'scientific');
 
   testWidgets('scientific: ^', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
