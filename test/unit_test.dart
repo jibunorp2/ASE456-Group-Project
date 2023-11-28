@@ -400,16 +400,40 @@ void main() {
 
   /*testWidgets('scientific: Test mod', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
+    expect(find.text('Angle Mode: Radians'), findsOneWidget);
     await tapButton(tester, '4');
     await tapButton(tester, '5');
     await tapButton(tester, '6');
+
     await tapButton(tester, '%');
+
     await tapButton(tester, '5');
+
     await tapButton(tester, '=');
 
 
     expect(find.text('1'), findsOneWidget);
   }, tags: 'scientific');*/
+
+  /*testWidgets('scientific: Test angle mode selection', (WidgetTester tester) async {
+  await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
+
+  expect(find.text('Angle Mode: Radians'), findsOneWidget);
+
+  await tester.tap(find.byType(DropdownButton));
+  await tester.pumpAndSettle(); 
+  await tester.tap(find.text('Degrees').last);
+  await tester.pumpAndSettle(); 
+  expect(find.text('Angle Mode: Degrees'), findsOneWidget);
+
+  await tester.tap(find.byType(DropdownButton));
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('Radians').last);
+  await tester.pumpAndSettle(); 
+
+  expect(find.text('Angle Mode: Radians'), findsOneWidget);
+
+}, tags: 'scientific');*/
 
   /*testWidgets('scientific: ^', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
@@ -456,17 +480,97 @@ void main() {
     expect(find.text('0.8509035245341184'), findsOneWidget);
   }, tags: 'scientific');*/
 
-  /*testWidgets('scientific: asin', (WidgetTester tester) async {
+  /*testWidgets('scientific: sin', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
     await tapButton(tester, 'sin');
-    //expect(find.text('sin('), findsOneWidget);
+    
     await tapButton(tester, '4');
     await tapButton(tester, '5');
+    expect(find.text('sin(45'), findsOneWidget);
     await tapButton(tester, '=');
 
+    //expect(find.textContaining('0.8509'), findsOneWidget);
+  }, tags: 'scientific');*/
+
+  testWidgets('scientific: sin', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    //radians
+    await tapButton(tester, 'sin');
+    expect(find.text('sin('), findsOneWidget);
+    await tapButton(tester, '4');
+    await tapButton(tester, '5');
+    expect(find.text('sin(45'), findsOneWidget);
+    await tapButton(tester, '=');
 
     expect(find.text('0.8509035245341184'), findsOneWidget);
-  }, tags: 'scientific');*/
+
+  }, tags: 'scientific');
+
+  testWidgets('scientific: cos', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    //radians
+    await tapButton(tester, 'cos');
+    expect(find.text('cos('), findsOneWidget);
+    await tapButton(tester, '4');
+    await tapButton(tester, '5');
+    expect(find.text('cos(45'), findsOneWidget);
+    await tapButton(tester, '=');
+
+    expect(find.textContaining('0.5253'), findsOneWidget);
+  }, tags: 'scientific');
+
+  testWidgets('scientific: tan', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    //radians
+    await tapButton(tester, 'tan');
+    expect(find.text('tan('), findsOneWidget);
+    await tapButton(tester, '4');
+    await tapButton(tester, '5');
+    expect(find.text('tan(45'), findsOneWidget);
+    await tapButton(tester, '=');
+
+    expect(find.textContaining('1.619'), findsOneWidget);
+  }, tags: 'scientific');
+
+  testWidgets('scientific: asin', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    //radians
+    await tapButton(tester, 'asin');
+    expect(find.text('asin('), findsOneWidget);
+    await tapButton(tester, '1');
+    expect(find.text('asin(1'), findsOneWidget);
+    await tapButton(tester, '=');
+
+    expect(find.textContaining('1.5707'), findsOneWidget);
+
+  }, tags: 'scientific');
+
+  testWidgets('scientific: acos', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    //radians
+    await tapButton(tester, 'acos');
+    expect(find.text('acos('), findsOneWidget);
+    await tapButton(tester, '0');
+    await tapButton(tester, '.');
+    await tapButton(tester, '3');
+    expect(find.text('acos(0.3'), findsOneWidget);
+    await tapButton(tester, '=');
+
+    expect(find.textContaining('1.26610'), findsOneWidget);
+  }, tags: 'scientific');
+
+  testWidgets('scientific: atan', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    //radians
+    await tapButton(tester, 'atan');
+    expect(find.text('atan('), findsOneWidget);
+    await tapButton(tester, '4');
+    await tapButton(tester, '5');
+    expect(find.text('atan(45'), findsOneWidget);
+    await tapButton(tester, '=');
+
+    expect(find.textContaining('1.5485'), findsOneWidget);
+  }, tags: 'scientific');
 
 
 }
