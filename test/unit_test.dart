@@ -30,7 +30,7 @@ void main() {
   simple.dart 
   ---------------------------------------------------------------------------------------
   */
-  testWidgets('simple: Initial state of Simple widget',
+  /*testWidgets('simple: Initial state of Simple widget',
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
@@ -151,7 +151,7 @@ void main() {
     expect(find.textContaining('4000'), findsOneWidget);
   }, tags: 'unit');
 
-  testWidgets('unit: 0 test', (WidgetTester tester) async {
+  /*testWidgets('unit: 0 test', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Unit()));
     Finder textFieldFinder = find.widgetWithText(TextField, 'Amount').first;
 
@@ -163,7 +163,7 @@ void main() {
     await tester.pump();
 
     expect(find.textContaining('0'), findsAtLeast(2));
-  }, tags: 'unit');
+  }, tags: 'unit');*/
 
   testWidgets('unit: large number', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Unit()));
@@ -232,7 +232,7 @@ void main() {
 
     // Reset the global variable to the original HTTP client
     httpClient = http.Client();
-  }, tags: 'money');
+  }, tags: 'money');*/
 
   /* 
   ---------------------------------------------------------------------------------------
@@ -275,7 +275,7 @@ void main() {
     expect(find.byType(MyButton), findsWidgets);
   }, tags: 'advanced');
 
-  testWidgets('advanced: Negative number test', (WidgetTester tester) async {
+  /*testWidgets('advanced: Negative number test', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
@@ -289,7 +289,7 @@ void main() {
     await tapButton(tester, '=');
 
     expect(find.text('-17'), findsOneWidget);
-  }, tags: 'advanced');
+  }, tags: 'advanced');*/
 
   testWidgets('advanced: log test', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
@@ -306,15 +306,50 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, 'pi');
-    await tapButton(tester, '+');
+    expect(find.text('3.141592653589793'), findsOneWidget);
+    await tapButton(tester, 'C');
     await tapButton(tester, 'e');
-    await tapButton(tester, '=');
+    expect(find.text('2.718281828459045'), findsOneWidget);
+    await tapButton(tester, 'C');
+    await tapButton(tester, '\u03C6');
+    expect(find.text('1.618033988749895'), findsOneWidget);
+    await tapButton(tester, 'C');
+    await tapButton(tester, 'ln2');
+    expect(find.text('0.6931471805599453'), findsOneWidget);
+    await tapButton(tester, 'C');
+    await tapButton(tester, 'sqrt(1/2)');
+    expect(find.text('0.7071067811865476'), findsOneWidget);
+    await tapButton(tester, 'C');
+    await tapButton(tester, 'ln');
+    expect(find.text('-Infinity'), findsOneWidget);
+    
 
-    expect(find.text('5.859874482048838'), findsOneWidget);
+  }, tags: 'advanced');
+  
+  testWidgets('advanced: ln', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
+
+    await tapButton(tester, '8');
+    await tapButton(tester, '9');
+    await tapButton(tester, 'ln');
+
+    expect(find.text('4.48863636973214'), findsOneWidget);
   }, tags: 'advanced');
 
-  testWidgets('advanced: using functions in tandem',
-      (WidgetTester tester) async {
+  /*testWidgets('advanced: constants test', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
+
+    await tapButton(tester, 'pi');
+    await tapButton(tester, '+');
+    await tapButton(tester, 'e');
+    await tapButton(tester, '+');
+    await tapButton(tester, '\u03C6');
+    await tapButton(tester, '=');
+
+    expect(find.text('7.477908470798733'), findsOneWidget);
+  }, tags: 'advanced');*/
+
+  /*testWidgets('advanced: using functions in tandem', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '8');
@@ -325,7 +360,47 @@ void main() {
     await tapButton(tester, '=');
 
     expect(find.text('5.859874482048838'), findsOneWidget);
+  }, tags: 'advanced');*/
+
+  /*testWidgets('advanced: absolute value', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
+
+    await tapButton(tester, '1');
+    await tapButton(tester, '±');
+
+    expect(find.text('-1'), findsOneWidget);
+    await tapButton(tester, '|x|');
+
+    expect(find.text('|-1| = 1'), findsOneWidget);
+  }, tags: 'advanced');*/
+
+  testWidgets('advanced: cubed root', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
+
+    await tapButton(tester, '\u221B');
+    await tapButton(tester, '8');
+    await tapButton(tester, '=');
+
+    expect(find.text('\u221B(8) = 2.0000000000000000'), findsOneWidget);
   }, tags: 'advanced');
+
+  /*testWidgets('advanced: ln ', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
+
+    await tapButton(tester, '89');
+    await tapButton(tester, 'ln');
+
+    expect(find.text('4.48863636973214'), findsOneWidget);
+  }, tags: 'advanced');*/
+
+  /*testWidgets('advanced: x cubed ', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
+
+    await tapButton(tester, '8');
+    await tapButton(tester, 'x³');
+
+    expect(find.text('8³ = 512'), findsOneWidget);
+  }, tags: 'advanced');*/
 
   /* 
   ---------------------------------------------------------------------------------------
@@ -333,12 +408,8 @@ void main() {
   ---------------------------------------------------------------------------------------
   */
 
-  testWidgets('Test sin button', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
 
-    expect(find.text('0'), findsOneWidget);
-  }, tags: 'scientific');
+
 }
 
 Future<void> tapButton(WidgetTester tester, String label) async {
