@@ -398,23 +398,6 @@ void main() {
   ---------------------------------------------------------------------------------------
   */
 
-  /*testWidgets('scientific: Test mod', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
-    expect(find.text('Angle Mode: Radians'), findsOneWidget);
-    await tapButton(tester, '4');
-    await tapButton(tester, '5');
-    await tapButton(tester, '6');
-
-    await tapButton(tester, '%');
-
-    await tapButton(tester, '5');
-
-    await tapButton(tester, '=');
-
-
-    expect(find.text('1'), findsOneWidget);
-  }, tags: 'scientific');*/
-
   /*testWidgets('scientific: Test angle mode selection', (WidgetTester tester) async {
   await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
 
@@ -434,6 +417,14 @@ void main() {
   expect(find.text('Angle Mode: Radians'), findsOneWidget);
 
 }, tags: 'scientific');*/
+  /*testWidgets('scientific: ^', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    await tapButton(tester, '3');
+    await tapButton(tester, '^');
+    await tapButton(tester, '3');
+    await tapButton(tester, '=');
+    expect(find.textContaining('27'), findsOneWidget);
+  }, tags: 'scientific');*/
 
   /*testWidgets('scientific: ^', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
@@ -446,50 +437,46 @@ void main() {
     expect(find.text('27'), findsOneWidget);
   }, tags: 'scientific');*/
 
-  /*testWidgets('scientific: sqrt', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
+  /*testWidgets('scientific: ^2', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    await tapButton(tester, '4');
+    await tapButton(tester, '^2');
+    await tapButton(tester, '=');
+    expect(find.text('16'), findsOneWidget);
+  }, tags: 'scientific');*/
+  testWidgets('scientific: 1/x', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    await tapButton(tester, '1/x');
+    await tapButton(tester, '2');
+    await tapButton(tester, '=');
+    expect(find.text('0.5'), findsOneWidget);
+  }, tags: 'scientific');
+
+  testWidgets('scientific: sqrt', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
     await tapButton(tester, '\u{221A}');
     await tapButton(tester, '2');
     await tapButton(tester, '5');
     await tapButton(tester, '=');
-
-
     expect(find.text('5'), findsOneWidget);
-  }, tags: 'scientific');*/
+  }, tags: 'scientific');
+
+  testWidgets('scientific: %', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    await tapButton(tester, '6');
+    await tapButton(tester, '%');
+    await tapButton(tester, '5');
+    await tapButton(tester, '=');
+    expect(find.text('1'), findsOneWidget);
+  }, tags: 'scientific');
 
   /*testWidgets('scientific: x sqrt y', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
     await tapButton(tester, '4');
     await tapButton(tester, 'x\u{221A}y');
     await tapButton(tester, '5');
     await tapButton(tester, '=');
-
-
     expect(find.text('2.23606797749979'), findsOneWidget);
-  }, tags: 'scientific');*/
-
-  /*testWidgets('scientific: sin', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
-    await tapButton(tester, 'sin');
-    //expect(find.text('sin('), findsOneWidget);
-    await tapButton(tester, '4');
-    await tapButton(tester, '5');
-    await tapButton(tester, '=');
-
-
-    expect(find.text('0.8509035245341184'), findsOneWidget);
-  }, tags: 'scientific');*/
-
-  /*testWidgets('scientific: sin', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: ScientificCalculator(buttonColor: Colors.blue,)));
-    await tapButton(tester, 'sin');
-    
-    await tapButton(tester, '4');
-    await tapButton(tester, '5');
-    expect(find.text('sin(45'), findsOneWidget);
-    await tapButton(tester, '=');
-
-    //expect(find.textContaining('0.8509'), findsOneWidget);
   }, tags: 'scientific');*/
 
   testWidgets('scientific: sin', (WidgetTester tester) async {
