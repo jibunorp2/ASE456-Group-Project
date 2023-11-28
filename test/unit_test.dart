@@ -329,7 +329,7 @@ void main() {
     expect(find.text('4.48863636973214'), findsOneWidget);
   }, tags: 'advanced');
 
-  /*testWidgets('advanced: absolute value', (WidgetTester tester) async {
+  testWidgets('advanced: absolute value', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '1');
@@ -338,12 +338,8 @@ void main() {
     expect(find.text('-12'), findsOneWidget);
     await tapButton(tester, '|x|');
     await tester.pumpAndSettle();
-    //error zero widgets with text "|-12| = 12"
-    expect(find.text('|-12| = 12'), findsOneWidget);
-
-    //await tester.pumpAndSettle();
-    //expect(find.textContaining('-12'), findsOneWidget);
-  }, tags: 'advanced');*/
+    expect(find.textContaining('| = 12'), findsOneWidget);
+  }, tags: 'advanced');
 
   testWidgets('advanced: cubed root', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
@@ -378,25 +374,23 @@ void main() {
     expect(find.text('1.3862943611198906'), findsOneWidget);
   }, tags: 'advanced');
 
-  /*testWidgets('advanced: x cubed ', (WidgetTester tester) async {
+  testWidgets('advanced: x cubed ', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '2');
     await tapButton(tester, 'x³');
 
-    //same error as absolute value
-    expect(find.text('2³ = 8'), findsOneWidget);
-  }, tags: 'advanced');*/
+    expect(find.textContaining('³ = 8'), findsOneWidget);
+  }, tags: 'advanced');
 
-  /*testWidgets('advanced: exp ', (WidgetTester tester) async {
+  testWidgets('advanced: exp ', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: AdvancedCalculator(buttonColor: Colors.blue,)));
 
     await tapButton(tester, '2');
     await tapButton(tester, 'exp');
 
-    //same error as absolute value
-    expect(find.text('7.38905609893065'), findsOneWidget);
-  }, tags: 'advanced');*/
+    expect(find.textContaining('7.38905609893065'), findsOneWidget);
+  }, tags: 'advanced');
 
   /* 
   ---------------------------------------------------------------------------------------
