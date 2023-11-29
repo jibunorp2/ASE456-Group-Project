@@ -14,6 +14,10 @@ class _Simple extends State<Simple> {
   double num2 = 0.0; // Initialize to a default value
   String operation = ''; // Initialize to an empty string
   double answer = 0.0;
+  String substring(int start, [int? end]) {
+    // TODO: implement substring
+    throw UnimplementedError();
+  }
 
   void clear() {
     setState(() {
@@ -25,11 +29,30 @@ class _Simple extends State<Simple> {
     });
   }
 
+  void delete() {
+    setState(() {
+      if (display.isNotEmpty) {
+        display = display.substring(0, display.length - 1);
+        if (display.isEmpty) {
+          display = '0';
+        }
+      }
+      if (operation.isNotEmpty) {
+        operation = '';
+        if (display.isEmpty) {
+          display = num1 as String;
+        }
+      }
+    });
+  }
+
   void handleClick(String input) {
     if (RegExp(r'[+\-*/0]').hasMatch(input)) {
       handleOperation(input);
     } else if (input == 'C') {
       clear();
+    } else if (input == 'D') {
+      delete();
     } else if (input == '=') {
       calculate();
     } else {
@@ -96,7 +119,7 @@ class _Simple extends State<Simple> {
 
   final List buttons = [
     'C', // buttons[0]
-    '', // buttons[1]
+    'D', // buttons[1]
     '', // buttons[2]
     '/', // buttons[3]
     '9', // buttons[4]
@@ -121,39 +144,43 @@ class _Simple extends State<Simple> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    return Column(
-      children: <Widget>[
-        Container(
-          height: height / 4,
-          alignment: Alignment.bottomRight,
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            display,
-            style: TextStyle(fontSize: 36),
-          ),
-        ),
-        Expanded(
-          child: GridView.builder(
-            itemCount: buttons.length,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              childAspectRatio:
-                  (width / height * 2),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            SingleChildScrollView(
+              reverse: true,
+              child: Container(
+                height: height / 4,
+                alignment: Alignment.bottomRight,
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  display,
+                  style: TextStyle(fontSize: 36),
+                ),
+              ),
             ),
-            itemBuilder: (context, index) {
-              return MyButton(
-                text: buttons[index],
-                buttonColor: Colors.deepPurple[100],
-                textColor: Colors.black,
-                function: () {
-                  handleClick(buttons[index]);
-                },
-              );
-            }
-          )
-        )
-      ],
+            Expanded(
+                child: GridView.builder(
+                    itemCount: buttons.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: (width / height * 2),
+                    ),
+                    itemBuilder: (context, index) {
+                      return MyButton(
+                        text: buttons[index],
+                        buttonColor: Colors.deepPurple[100],
+                        textColor: Colors.black,
+                        function: () {
+                          handleClick(buttons[index]);
+                        },
+                      );
+                    }))
+          ],
+        ),
+      ),
     );
   }
 }
