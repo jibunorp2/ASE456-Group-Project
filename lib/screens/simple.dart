@@ -36,12 +36,13 @@ class _Simple extends State<Simple> {
         if (display.isEmpty) {
           display = '0';
         }
-      }
-      if (operation.isNotEmpty) {
+      } else if (operation.isNotEmpty) {
         operation = '';
-        if (display.isEmpty) {
-          display = num1 as String;
-        }
+        display = num1.toString();
+      }
+
+      if (operation.isNotEmpty) {
+        num2 = double.parse(display);
       }
     });
   }
