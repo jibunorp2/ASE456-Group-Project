@@ -30,7 +30,7 @@ void main() {
   simple.dart 
   ---------------------------------------------------------------------------------------
   */
-  /*testWidgets('simple: Initial state of Simple widget',
+  testWidgets('simple: Initial state of Simple widget',
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Simple(buttonColor: Colors.blue,)));
 
@@ -232,7 +232,7 @@ void main() {
 
     // Reset the global variable to the original HTTP client
     httpClient = http.Client();
-  }, tags: 'money');*/
+  }, tags: 'money');
 
   /* 
   ---------------------------------------------------------------------------------------
@@ -626,6 +626,27 @@ void main() {
     expect(find.textContaining('1.26610'), findsOneWidget);
   }, tags: 'scientific');
 
+  testWidgets('scientific: acos in degrees', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    
+    expect(find.textContaining('Radians'), findsOneWidget);
+
+    await tester.tap(find.byType(DropdownButton<AngleMode>));
+    await tester.pumpAndSettle(); 
+    await tester.tap(find.textContaining('Degrees').last);
+    await tester.pumpAndSettle(); 
+    expect(find.textContaining('Degrees'), findsOneWidget);
+
+    await tapButton(tester, 'acos');
+    expect(find.text('acos('), findsOneWidget);
+    await tapButton(tester, '3');
+    await tapButton(tester, '5');
+    expect(find.text('acos(35'), findsOneWidget);
+    await tapButton(tester, '=');
+    expect(find.textContaining('0.9136'), findsOneWidget);
+  }, tags: 'scientific');
+
+
   testWidgets('scientific: atan', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
     //radians
@@ -637,6 +658,26 @@ void main() {
     await tapButton(tester, '=');
 
     expect(find.textContaining('1.5485'), findsOneWidget);
+  }, tags: 'scientific');
+
+  testWidgets('scientific: atan in degrees', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ScientificCalculator(buttonColor: Colors.blue),),),);
+    
+    expect(find.textContaining('Radians'), findsOneWidget);
+
+    await tester.tap(find.byType(DropdownButton<AngleMode>));
+    await tester.pumpAndSettle(); 
+    await tester.tap(find.textContaining('Degrees').last);
+    await tester.pumpAndSettle(); 
+    expect(find.textContaining('Degrees'), findsOneWidget);
+
+    await tapButton(tester, 'atan');
+    expect(find.text('atan('), findsOneWidget);
+    await tapButton(tester, '3');
+    await tapButton(tester, '5');
+    expect(find.text('atan(35'), findsOneWidget);
+    await tapButton(tester, '=');
+    expect(find.textContaining('0.54837'), findsOneWidget);
   }, tags: 'scientific');
 
 
