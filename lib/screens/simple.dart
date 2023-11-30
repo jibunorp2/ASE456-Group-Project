@@ -32,15 +32,29 @@ class _Simple extends State<Simple> {
   void delete() {
     setState(() {
       if (display.isNotEmpty) {
-        display = display.substring(0, display.length - 1);
+        // Check if the last character is a digit before deleting
+        if (RegExp(r'\d').hasMatch(display[display.length - 1])) {
+          display = display.substring(0, display.length - 1);
+        }
+
         if (display.isEmpty) {
           display = '0';
         }
       } else if (operation.isNotEmpty) {
+        // If operation is deleted, go back to the previous number (num1 or num2)
+        if (num2 != 0.0) {
+          // If num2 has a value, restore it when deleting
+          display = num2.toString();
+          num2 = 0.0; // Reset num2 after restoring it
+        } else {
+          // If num2 is not set, restore num1
+          display = num1.toString();
+          num1 = 0.0; // Reset num1 after restoring it
+        }
         operation = '';
-        display = num1.toString();
       }
 
+      // Update num2 based on the updated display value
       if (operation.isNotEmpty) {
         num2 = double.parse(display);
       }
