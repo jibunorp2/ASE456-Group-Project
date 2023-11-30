@@ -17,6 +17,38 @@ class _Simple extends State<Simple> {
   String operation = ''; // Initialize to an empty string
   double answer = 0.0;
 
+  void delete() {
+    setState(() {
+      if (display.isNotEmpty) {
+        // Check if the last character is a digit before deleting
+        if (RegExp(r'\d').hasMatch(display[display.length - 1])) {
+          display = display.substring(0, display.length - 1);
+        }
+
+        if (display.isEmpty) {
+          display = '0';
+        }
+      } else if (operation.isNotEmpty) {
+        // If operation is deleted, go back to the previous number (num1 or num2)
+        if (num2 != 0.0) {
+          // If num2 has a value, restore it when deleting
+          display = num2.toString();
+          num2 = 0.0; // Reset num2 after restoring it
+        } else {
+          // If num2 is not set, restore num1
+          display = num1.toString();
+          num1 = 0.0; // Reset num1 after restoring it
+        }
+        operation = '';
+      }
+
+      // Update num2 based on the updated display value
+      if (operation.isNotEmpty && !RegExp(r'^[+\-*/0]+$').hasMatch(display)) {
+        num2 = double.parse(display);
+      }
+    });
+  }
+
   void clear() {
     setState(() {
       display = '0';
@@ -32,6 +64,8 @@ class _Simple extends State<Simple> {
       handleOperation(input);
     } else if (input == 'C') {
       clear();
+    } else if (input == 'D') {
+      delete();
     } else if (input == '=') {
       calculate();
     } else {
@@ -98,7 +132,7 @@ class _Simple extends State<Simple> {
 
   final List buttons = [
     'C', // buttons[0]
-    '', // buttons[1]
+    'D', // buttons[1]
     '', // buttons[2]
     '/', // buttons[3]
     '9', // buttons[4]
