@@ -1,0 +1,245 @@
+@startuml
+set namespaceSeparator ::
+
+class "ase456_group_project::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ase456_group_project::main.dart::MyApp"
+
+class "ase456_group_project::screens::advanced.dart::AdvancedCalculator" {
+  +Color buttonColor
+  +State<AdvancedCalculator> createState()
+}
+
+"ase456_group_project::screens::advanced.dart::AdvancedCalculator" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::screens::advanced.dart::AdvancedCalculator"
+
+class "ase456_group_project::screens::advanced.dart::_AdvancedCalculator" {
+  +String display
+  +double num1
+  +double num2
+  +String operation
+  +double answer
+  +double logBase
+  +bool isLogOperation
+  +bool isCubedRoot
+  {static} +double phi
+  +List<dynamic> buttons
+  +void delete()
+  +void clear()
+  +void calculateLog()
+  +void handleNegation()
+  +void calculateLn()
+  +void calculateExp()
+  +void handleAbsoluteValue()
+  +void calculateLn2()
+  +void calculateCubed()
+  +void calculateSquareRoot1_2()
+  +void calculateCubedRoot()
+  +void handleClick()
+  +void handleInput()
+  +void handleOperation()
+  +void calculate()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::screens::advanced.dart::_AdvancedCalculator"
+
+class "ase456_group_project::screens::home.dart::Home" {
+  +State<Home> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::screens::home.dart::Home"
+
+class "ase456_group_project::screens::home.dart::_HomePageState" {
+  +int tab
+  +Color buttonColor
+  +void selectItem()
+  +void updateButtonColor()
+  +Widget build()
+}
+
+"ase456_group_project::screens::home.dart::_HomePageState" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::screens::home.dart::_HomePageState"
+
+class "ase456_group_project::screens::home.dart::Item1" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ase456_group_project::screens::home.dart::Item1"
+
+class "ase456_group_project::screens::home.dart::Item2" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ase456_group_project::screens::home.dart::Item2"
+
+class "ase456_group_project::screens::home.dart::Item3" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ase456_group_project::screens::home.dart::Item3"
+
+class "ase456_group_project::screens::money.dart::Money" {
+  +State<Money> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::screens::money.dart::Money"
+
+class "ase456_group_project::screens::money.dart::_MoneyState" {
+  -double _leftAmount
+  -double _rightAmount
+  -String _leftCurrency
+  -String _rightCurrency
+  -TextEditingController _leftController
+  -TextEditingController _rightController
+  +List<String> currencyList
+  +dynamic convertCurrencies()
+  +Widget build()
+}
+
+"ase456_group_project::screens::money.dart::_MoneyState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::screens::money.dart::_MoneyState"
+
+class "ase456_group_project::screens::scientific.dart::ScientificCalculator" {
+  +Color buttonColor
+  +State<ScientificCalculator> createState()
+}
+
+"ase456_group_project::screens::scientific.dart::ScientificCalculator" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::screens::scientific.dart::ScientificCalculator"
+
+class "ase456_group_project::screens::scientific.dart::_ScientificCalculatorState" {
+  +AngleMode currentMode
+  +String display
+  +double num1
+  +double num2
+  +String operation
+  +double answer
+  +bool isSinOperation
+  +bool isCosOperation
+  +bool isTanOperation
+  +bool isArcSinOperation
+  +bool isArcCosOperation
+  +bool isArcTanOperation
+  +bool isFactorial
+  +bool isExponent
+  +bool isSquareRoot
+  +bool isReciprocal
+  +bool isSquared
+  +bool isMod
+  +bool isNthRoot
+  +String value
+  +List<dynamic> buttons
+  +void delete()
+  +void calculateSin()
+  +void calculateCos()
+  +void calculateTan()
+  +void calculateArcSin()
+  +void calculateArcCos()
+  +void calculateArcTan()
+  +void calculateSquareRoot()
+  +double calculateFactorial()
+  +double calculateExponent()
+  +double calculateMod()
+  +void calculateReciprocal()
+  +double calculateSquared()
+  +void calculateNthRoot()
+  +double nthRoot()
+  +void clear()
+  +void handleClick()
+  +void handleInput()
+  +void handleOperation()
+  +void calculate()
+  +Widget build()
+}
+
+"ase456_group_project::screens::scientific.dart::_ScientificCalculatorState" o-- "ase456_group_project::screens::scientific.dart::AngleMode"
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::screens::scientific.dart::_ScientificCalculatorState"
+
+class "ase456_group_project::screens::scientific.dart::AngleMode" {
+  +int index
+  {static} +List<AngleMode> values
+  {static} +AngleMode radians
+  {static} +AngleMode degrees
+}
+
+"ase456_group_project::screens::scientific.dart::AngleMode" o-- "ase456_group_project::screens::scientific.dart::AngleMode"
+"dart::core::Enum" <|-- "ase456_group_project::screens::scientific.dart::AngleMode"
+
+class "ase456_group_project::screens::simple.dart::Simple" {
+  +Color buttonColor
+  +State<Simple> createState()
+}
+
+"ase456_group_project::screens::simple.dart::Simple" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::screens::simple.dart::Simple"
+
+class "ase456_group_project::screens::simple.dart::_Simple" {
+  +String display
+  +double num1
+  +double num2
+  +String operation
+  +double answer
+  +List<dynamic> buttons
+  +void delete()
+  +void clear()
+  +void handleClick()
+  +void handleInput()
+  +void handleOperation()
+  +void calculate()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::screens::simple.dart::_Simple"
+
+class "ase456_group_project::screens::unit.dart::Unit" {
+  +State<Unit> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::screens::unit.dart::Unit"
+
+class "ase456_group_project::screens::unit.dart::_UnitState" {
+  -double _leftAmount
+  -double _rightAmount
+  -Type _unitType
+  -Enum _rightUnit
+  -Enum _leftUnit
+  -TextEditingController _leftController
+  -TextEditingController _rightController
+  +Widget build()
+}
+
+"ase456_group_project::screens::unit.dart::_UnitState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::screens::unit.dart::_UnitState"
+
+class "ase456_group_project::ui_elements::button.dart::MyButton" {
+  +String text
+  +dynamic buttonColor
+  +dynamic textColor
+  +dynamic function
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ase456_group_project::ui_elements::button.dart::MyButton"
+
+class "ase456_group_project::ui_elements::color_picker.dart::ColorPickerButton" {
+  +dynamic Function(Color) onColorSelected
+  +_ColorPickerButtonState createState()
+}
+
+"ase456_group_project::ui_elements::color_picker.dart::ColorPickerButton" o-- "null::dynamic Function(Color)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ase456_group_project::ui_elements::color_picker.dart::ColorPickerButton"
+
+class "ase456_group_project::ui_elements::color_picker.dart::_ColorPickerButtonState" {
+  -Color _selectedColor
+  -void _openColorPicker()
+  +Widget build()
+}
+
+"ase456_group_project::ui_elements::color_picker.dart::_ColorPickerButtonState" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::State" <|-- "ase456_group_project::ui_elements::color_picker.dart::_ColorPickerButtonState"
+
+
+@enduml
