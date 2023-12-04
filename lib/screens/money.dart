@@ -75,6 +75,7 @@ class _MoneyState extends State<Money> {
         throw Exception('Failed to load data');
       }
     } catch (e) {
+      _showSnackBar("API Error. Please try again later.");
       return 0.0;
     }
   }
