@@ -45,6 +45,15 @@ class _MoneyState extends State<Money> {
     'THB',
   ];
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   Future<double> convertCurrencies(
       String fromCurrency, String toCurrency, double amount) async {
     const apiKey = '5a77f3fdb7781f9a7584';
@@ -66,7 +75,6 @@ class _MoneyState extends State<Money> {
         throw Exception('Failed to load data');
       }
     } catch (e) {
-      print(e);
       return 0.0;
     }
   }
@@ -110,14 +118,24 @@ class _MoneyState extends State<Money> {
                     ),
                     onSubmitted: (String value) async {
                       if (value.isEmpty) return;
-                      _leftAmount = double.parse(value);
-                      final convertedAmount = await convertCurrencies(
-                          _leftCurrency, _rightCurrency, _leftAmount);
-                      setState(() {
-                        _rightAmount = convertedAmount;
-                        _leftController.text = value;
-                        _rightController.text = convertedAmount.toString();
-                      });
+                      try {
+                        double inputValue = double.parse(value);
+                        if (inputValue <= 0) {
+                          throw const FormatException(
+                              "Input must be a positive number");
+                        }
+                        _leftAmount = inputValue;
+                        final convertedAmount = await convertCurrencies(
+                            _leftCurrency, _rightCurrency, _leftAmount);
+                        setState(() {
+                          _rightAmount = convertedAmount;
+                          _leftController.text = value;
+                          _rightController.text = convertedAmount.toString();
+                        });
+                      } catch (e) {
+                        _showSnackBar(
+                            "Invalid input. Please enter a positive number.");
+                      }
                     },
                   ),
                 ),
@@ -154,14 +172,25 @@ class _MoneyState extends State<Money> {
                     ),
                     onSubmitted: (String value) async {
                       if (value.isEmpty) return;
-                      _rightAmount = double.parse(value);
-                      final convertedAmount = await convertCurrencies(
-                          _rightCurrency, _leftCurrency, _rightAmount);
-                      setState(() {
-                        _leftAmount = convertedAmount;
-                        _leftController.text = convertedAmount.toString();
-                        _rightController.text = value;
-                      });
+
+                      try {
+                        double inputValue = double.parse(value);
+                        if (inputValue <= 0) {
+                          throw const FormatException(
+                              "Input must be a positive number");
+                        }
+                        _rightAmount = inputValue;
+                        final convertedAmount = await convertCurrencies(
+                            _rightCurrency, _leftCurrency, _rightAmount);
+                        setState(() {
+                          _leftAmount = convertedAmount;
+                          _rightController.text = value;
+                          _leftController.text = convertedAmount.toString();
+                        });
+                      } catch (e) {
+                        _showSnackBar(
+                            "Invalid input. Please enter a positive number.");
+                      }
                     },
                   ),
                 ),

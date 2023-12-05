@@ -19,6 +19,15 @@ class _UnitState extends State<Unit> {
   final _leftController = TextEditingController();
   final _rightController = TextEditingController();
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double boxWidth = MediaQuery.of(context).size.width * 0.4;
@@ -93,14 +102,25 @@ class _UnitState extends State<Unit> {
                         ),
                         onSubmitted: (String value) async {
                           if (value.isEmpty) return;
-                          _leftAmount = double.parse(value);
-                          final convertedAmount =
-                              _leftAmount.convertFromTo(_leftUnit, _rightUnit);
-                          setState(() {
-                            _rightAmount = convertedAmount!;
-                            _leftController.text = value;
-                            _rightController.text = convertedAmount.toString();
-                          });
+                          try {
+                            double inputValue = double.parse(value);
+                            if (inputValue <= 0) {
+                              throw const FormatException(
+                                  "Input must be a positive number");
+                            }
+                            _leftAmount = inputValue;
+                            final convertedAmount = _leftAmount.convertFromTo(
+                                _leftUnit, _rightUnit);
+                            setState(() {
+                              _rightAmount = convertedAmount!;
+                              _leftController.text = value;
+                              _rightController.text =
+                                  convertedAmount.toString();
+                            });
+                          } catch (e) {
+                            _showSnackBar(
+                                "Invalid input. Please enter a positive number.");
+                          }
                         },
                       ),
                     ),
@@ -137,14 +157,24 @@ class _UnitState extends State<Unit> {
                         ),
                         onSubmitted: (String value) async {
                           if (value.isEmpty) return;
-                          _rightAmount = double.parse(value);
-                          final convertedAmount =
-                              _rightAmount.convertFromTo(_rightUnit, _leftUnit);
-                          setState(() {
-                            _leftAmount = convertedAmount!;
-                            _rightController.text = value;
-                            _leftController.text = convertedAmount.toString();
-                          });
+                          try {
+                            double inputValue = double.parse(value);
+                            if (inputValue <= 0) {
+                              throw const FormatException(
+                                  "Input must be a positive number");
+                            }
+                            _rightAmount = inputValue;
+                            final convertedAmount = _rightAmount.convertFromTo(
+                                _rightUnit, _leftUnit);
+                            setState(() {
+                              _leftAmount = convertedAmount!;
+                              _rightController.text = value;
+                              _leftController.text = convertedAmount.toString();
+                            });
+                          } catch (e) {
+                            _showSnackBar(
+                                "Invalid input. Please enter a positive number.");
+                          }
                         },
                       ),
                     ),
