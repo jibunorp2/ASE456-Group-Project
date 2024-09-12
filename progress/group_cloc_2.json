@@ -1,0 +1,48 @@
+{"header" : {
+    "cloc_url"           : "github.com/AlDanial/cloc",
+    "cloc_version"       : "1.98",
+    "elapsed_seconds"    : 0.073246955871582,
+    "n_files"            : 12,
+    "n_lines"            : 3001,
+    "files_per_second"   : 163.829334027733,
+    "lines_per_second"   : 40970.9859514355},
+  "lib\\screens\\scientific.dart" :{
+    "blank": 33,
+    "comment": 5,
+    "code": 445,
+    "language": "Dart"},
+  "lib\\screens\\simple.dart" :{
+    "blank": 16,
+    "comment": 5,
+    "code": 174,
+    "language": "Dart"},
+  "lib\\screens\\money.dart" :{
+    "blank": 9,
+    "comment": 0,
+    "code": 166,
+    "language": "Dart"},
+  "lib\\screens\\home.dart" :{
+    "blank": 9,
+    "comment": 1,
+    "code": 154,
+    "language": "Dart"},
+  "lib\\screens\\unit.dart" :{
+    "blank": 6,
+    "comment": 0,
+    "code": 198,
+    "language": "Dart"},
+  "lib\\ui_elements\\color_picker.dart" :{
+    "blank": 6,
+    "comment": 1,
+    "code": 56,
+    "language": "Dart"},
+  "lib\\main.dart" :{
+    "blank": 3,
+    "comment": 0,
+    "code": 15,
+    "language": "Dart"},
+  "SUM": {
+    "blank": 279,
+    "comment": 81,
+    "code": 1208,
+    "nFiles": 12} }

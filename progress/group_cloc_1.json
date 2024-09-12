@@ -1,0 +1,28 @@
+{"header" : {
+    "cloc_url"           : "github.com/AlDanial/cloc",
+    "cloc_version"       : "1.98",
+    "elapsed_seconds"    : 0.073246955871582,
+    "n_files"            : 12,
+    "n_lines"            : 3001,
+    "files_per_second"   : 163.829334027733,
+    "lines_per_second"   : 40970.9859514355},
+  "lib\\screens\\simple.dart" :{
+    "blank": 16,
+    "comment": 5,
+    "code": 179,
+    "language": "Dart"},
+  "lib\\screens\\home.dart" :{
+    "blank": 9,
+    "comment": 1,
+    "code": 89,
+    "language": "Dart"},
+  "lib\\main.dart" :{
+    "blank": 3,
+    "comment": 0,
+    "code": 15,
+    "language": "Dart"},
+  "SUM": {
+    "blank": 279,
+    "comment": 81,
+    "code": 280,
+    "nFiles": 12} }

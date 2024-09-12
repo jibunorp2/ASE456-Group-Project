@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="ase456_group_project"
+        android:label="ASE 456 Calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
